@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-s-12">
+
+      <div class="d-flex justify-content-center">
+
+        <form class="d-flex flex-column align-items-center" method="POST" action="/newtrip/category"
+          id="createCategoryForm">
+          <p id="newtripTitle" class="useraccount giveitaname">Start {{newTrip.name}} trip calculation here:</p>
+
+          {{#if error}}
+          <p class="text-danger">{{error}}</p>
+          {{/if}}
+
+          <div class="form-group">
+            <input type="text" placeholder="Name your trip category" name="newCategoryName" class="form-control"
+              id="categoryName">
+          </div> <br />
+          <div class="form-group">
+            <input type="number" placeholder="Enter your full budget" name="fullCost" class="form-control"
+              id="newCategoryCost">
+          </div> <br />
+
+          {{#each newTrip.users}}
+
+          <div class="form-group">
+            <input type="text" value="{{this}}" placeholder="Enter people name's in your trip" name="newTrip[users]"
+              class="form-control" id="payers">
+          </div> <br>
+          {{/each}}
+
+
+          <div class="form-group">
+            <input type="hidden" name="tripName" value="{{newTrip.name}}" class="form-control" id="payers">
+          </div>
+          <div class="form-group">
+            <input type="hidden" name="tripId" value="{{newTrip.id}}" class="form-control" id="tripId">
+          </div>
+          <div class="form-group">
+            <a class="useraccount giveitaname">Choose how would you like to split:</a>
+          </div> <br>
+          <button id="equallyBtn" type="submit" class="btn btn-primary green lighten-3">Split Even</button>
+
+          <button formaction="/newtrip/category/castomize" formmethod="post" type="submit" value="{{newTrip.name}}"
+            name="tripNameCast" class="btn btn-primary green lighten-3">Custom split </button>
+        </form> <br>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

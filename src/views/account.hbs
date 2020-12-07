@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-s-12">
+
+      <p class="interval"> <a class="useraccount" href="/account">{{userName}}'s Account</a></p>
+
+
+      <p class="interval splitbills"> Split bills.
+        We tell you who owes whom and how to settle debts in groups
+        Click on New Trip or view all trips</p>
+
+
+      <form class="acc-btn col-3 col-s-12" action="/newtrip">
+        <button class="waves-effect waves-light btn-large nav-wrapper green lighten-3">New Trip</button>
+      </form>
+
+      <form class="acc-btn col-3 col-s-12" action="/newtrip/allTrips">
+        <button class="waves-effect waves-light btn-large nav-wrapper green lighten-3">All Trips</button>
+      </form>
+
+
+      <template id="liTemplate">
+        {{htmlTemplate 'allTrips'}}
+      </template>
+    </div>
+
+  </div>
+</div>
+</div>
