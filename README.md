@@ -7,7 +7,7 @@ Travel Badget - проект для заказчика. Приложение д�
 
 <p>
 <b>
-Используемые технологии: JS, Handlebars, Mongoose, Express, MongoDB, Node.js. 
+Используемые технологии: JavaScript, MongoDB Cluster, Handlebars, Mongoose, Express, Node.js, Material-UI, Nodemailer, REST API. 
 </b>
 </p>
 <p>
