@@ -12,9 +12,9 @@ Travel Badget - проект для заказчика. Приложение д�
 </p>
 <p>
 <b>
-Посмотреть реализацию проекта на Heroku: https://travelbudget-app.herokuapp.com
+Проект на Heroku: https://travelbudget-app.herokuapp.com
 </b>
-</p>
+</p> <br />
 <p align="center">
   <img src="public/1.gif" width="700" title="Авторизация">
   <img src="public/2.gif" width="700" title="Добавление путешествия">
