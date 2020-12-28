@@ -11,7 +11,6 @@ const tripSchema = Schema({
     required: true,
     type: []
   },
-  // users: [{name: String}],
   categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now}

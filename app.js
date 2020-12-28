@@ -49,7 +49,6 @@ app.use(session({
 })); 
 
 app.use(methodOverride('_method'))
-
 app.use(userMiddle.userName)
 app.use('/', indexRoute)
 app.use('/users', usersRoute)

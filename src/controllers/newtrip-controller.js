@@ -1,10 +1,5 @@
 const Trip = require('../models/trip-model')
 const Category = require('../models/category-model')
-const mongoose = require('mongoose')
-const fetch = require('node-fetch');
-const GoogleChartsNode = require('google-charts-node');
-var request = require('request');
-var unirest = require("unirest");
 const renderTripReport = (req, res) => {
   res.render('summary')
 }
@@ -25,7 +20,6 @@ const findCategoryById = async (req, res) => {
 const editCategoryEqually = async (req, res) => {
   let tripId = req.body.tripId
   let category = await Category.findById(req.params.id);
-  let newTrip = await Trip.findById(tripId);
   
   let { name, cost, users } = req.body.category;
 
