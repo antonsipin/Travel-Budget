@@ -8,6 +8,9 @@
     "start": "npm install && node app.js",
     "production": "cross-env NODE_ENV=production node app.js"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/antonsipin/Travel-Budget.git"

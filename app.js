@@ -17,7 +17,7 @@ const userMiddle = require('./src/middleware/user')
 const mailRoute = require('./src/routes/mail')
 const fs = require('fs')
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 dbConnect()
 
 app.set('session cookie name', 'sid')
