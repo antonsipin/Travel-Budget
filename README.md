@@ -7,10 +7,14 @@ Travel Badget - проект для заказчика. Приложение д�
 
 <p>
 <b>
-Используемые технологии: JS, Handlebars, Mongoose, Express, MongoDB, Node.js.
+Используемые технологии: JavaScript, MongoDB Cluster, Handlebars, Mongoose, Express, Node.js, Material-UI, Nodemailer, REST API. 
 </b>
 </p>
-
+<p>
+<b>
+Проект на Heroku: https://travelbudget-app.herokuapp.com
+</b>
+</p> <br />
 <p align="center">
   <img src="public/1.gif" width="700" title="Авторизация">
   <img src="public/2.gif" width="700" title="Добавление путешествия">
