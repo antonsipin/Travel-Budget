@@ -21,25 +21,20 @@ const renderLogIn = (req, res) => {
 
 const signUp = async (req, res) => {
   const { name, email, password } = req.body;
-  console.log('req.body', name, email, password)
    
-    try {
+try {
      
 if (name && email && password) {
- const hashPass = await bcrypt.hash(password, Number(salt))
+  const hashPass = await bcrypt.hash(password, Number(salt))
 
-      const newUser = new User({
+    const newUser = new User({
         email,
         name,
         password: hashPass, 
       })
 
-
       await newUser.save()
-    console.log(newUser)
       req.session.user = serializeUser(newUser)
-console.log(serializeUser(newUser))
-     
       res.redirect('/account')
     } 
    else {

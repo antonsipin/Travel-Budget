@@ -16,7 +16,6 @@ const dbConnect = require('./src/config/db')
 const userMiddle = require('./src/middleware/user')
 const mailRoute = require('./src/routes/mail')
 const fs = require('fs')
-
 const PORT = process.env.PORT
 dbConnect()
 
@@ -29,7 +28,7 @@ hbs.registerHelper('htmlTemplate', (name) => {
   return template;
 })
 app.use(logger('dev'));
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

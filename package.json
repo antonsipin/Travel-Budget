@@ -2,7 +2,7 @@
   "name": "travelBudget",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon --ignore .'sessions/' app.js",
     "start": "npm install && node app.js",
