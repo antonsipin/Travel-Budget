@@ -35,8 +35,8 @@ The app is available on Heroku: https://travelbudget-app.herokuapp.com
   </p> 
 
 <h3 align="center">
-  <p>Authentication:</p><br />
-  <img src="public/1.gif" width="700" title="Authentication"><br />
+  <p>Authorization:</p><br />
+  <img src="public/1.gif" width="700" title="Authorization"><br />
   <p>Adding a trip:</p><br />
   
   <img src="public/2.gif" width="700" title="Adding a trip"><br />
