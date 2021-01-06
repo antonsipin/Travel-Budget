@@ -35,7 +35,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(session({
-  name: app.get('session cookie name'),
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
     mongooseConnection: mongoose.createConnection(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wrnxb.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`),
@@ -43,8 +42,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 1000 * 60 * 60 * 24
+    secure: false,
   },
 })); 
 
