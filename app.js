@@ -5,6 +5,8 @@ const sessionFileStore = require('session-file-store')
 const logger = require('morgan');
 const methodOverride = require('method-override')
 const session = require('express-session')
+const mongoose = require('mongoose')
+const MongoStore = require('connect-mongo')(session)
 const app = express()
 const path = require('path')
 const hbs = require('hbs')
@@ -32,17 +34,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-const FileStore = sessionFileStore(session) 
 app.use(session({
   name: app.get('session cookie name'),
   secret: process.env.SESSION_SECRET,
-  store: new FileStore({
-    secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    mongooseConnection: mongoose.createConnection(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wrnxb.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`),
   }),
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: {
-    secure: process.env.NODE_ENV,
+    secure: process.env.NODE_ENV === 'production',
     maxAge: 1000 * 60 * 60 * 24
   },
 })); 
