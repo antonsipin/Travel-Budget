@@ -57,7 +57,7 @@ const signIn = async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.password)
         if (validPassword) {
           req.session.user = serializeUser(user)
-          res.redirect('/account')
+          res.render('account')
         } else {
           res.render('login', { error: 'Wrong Email or Password' })
         }
