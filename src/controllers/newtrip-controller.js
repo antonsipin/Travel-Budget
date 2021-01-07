@@ -206,11 +206,10 @@ const renderCastomizeCategory = (req, res) => {
 }
 
 const castomizeCategory = async (req, res) => {
-  let categoryName = req.body.newCategoryName;
+  let categoryName = req.body.newCategoryName
   let tripName = req.body.tripName
-  let fullCost = req.body.fullCost;
-  let payers = req.body.payers.split(',');
-  res.locals.payers = payers
+  let fullCost = req.body.fullCost
+  let payers = req.body.payers
 
   if (categoryName && fullCost && payers) {
     try {
