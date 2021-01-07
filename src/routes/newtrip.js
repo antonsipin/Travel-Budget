@@ -46,4 +46,8 @@ router
   .route('/category/edit/:id')
   .post(newTripController.editCategoryEqually)
 
+// router
+//   .route('/category/edit/castomize/:id')
+//   .post(newTripController.editCategoryCastomize)
+
 module.exports = router

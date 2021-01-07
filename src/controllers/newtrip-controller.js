@@ -18,7 +18,10 @@ const findCategoryById = async (req, res) => {
 }
 
 const editCategoryEqually = async (req, res) => {
-  let tripId = req.body.tripId
+  // let newTrip = { name: req.body.tripName }
+  console.log('req.body.tripName>>', req.body.tripName)
+  let newTrip = await Trip.findOne({ name: req.body.tripName })
+  console.log('newTrip>>', newTrip)
   let category = await Category.findById(req.params.id);
   
   let { name, cost, users } = req.body.category;
@@ -48,7 +51,7 @@ const editCategoryEqually = async (req, res) => {
 
       await category.save();
 
-      res.render('equally', { categoryName, payers, payerCost, newCategory })
+      res.render('equally', { categoryName, payers, payerCost, newCategory, newTrip })
 
     } catch (e) {
       console.log(e);
@@ -282,4 +285,5 @@ module.exports = {
   addCategory,
   findCategoryById,
   editCategoryEqually,
+  // editCategoryCastomize
 }
