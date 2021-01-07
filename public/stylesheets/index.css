@@ -3,19 +3,19 @@
 }
 
 .row::after {
-  content: '';
+  content: "";
   clear: both;
   display: table;
 }
 
-[class*='col-'] {
+[class*="col-"] {
   float: left;
   padding: 15px;
 }
 
 /* ETO DLYA HOME PAGE NAV */
 /* ETO NA TELEFON  */
-[class*='col-'] {
+[class*="col-"] {
   width: 100%;
 }
 
@@ -118,7 +118,7 @@
   margin-top: 6px;
   text-align: left;
   padding: 30px;
-  font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS';
+  font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS";
 }
 
 .title {
