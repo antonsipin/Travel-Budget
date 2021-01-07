@@ -1,14 +1,16 @@
 <div class="container">
-  <div class="row">
+  <div class="equally">
 
-    <div class="col-s-12">
-      <div class="account">
-        <h2 class="useraccount giveitaname">Category "{{categoryName}}" successfully saved!</h2>
-      </div><br />
+    {{!-- <div class="col-s-12"> --}}
+      {{!-- <div class="account"> --}}
+        <h2 id="gr-word">{{newTrip.name}} trip</h2><br />
+        <h2 class="useraccount giveitaname">Category {{categoryName}} successfully saved!</h2>
+        {{!--
+      </div><br /> --}}
       <div class="d-flex justify-content-center">
         <form class="account">
-          <button formaction="/newtrip/addcategory" name="tripName" formmethod="post" type="submit" value="{{tripName}}"
-            class="btn btn-primary green lighten-3">Add category</button>
+          <button formaction="/newtrip/addcategory" name="tripName" formmethod="post" type="submit"
+            value="{{newTrip.name}}" class="btn btn-primary green lighten-3">Add category</button>
         </form>
 
       </div> <br />
@@ -22,7 +24,8 @@
       </div>
       {{/each}}
 
-    </div>
+      {{!--
+    </div> --}}
   </div>
 
 </div>

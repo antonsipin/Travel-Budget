@@ -18,19 +18,14 @@ const findCategoryById = async (req, res) => {
 }
 
 const editCategoryEqually = async (req, res) => {
-  // let newTrip = { name: req.body.tripName }
-  console.log('req.body.tripName>>', req.body.tripName)
   let newTrip = await Trip.findOne({ name: req.body.tripName })
-  console.log('newTrip>>', newTrip)
   let category = await Category.findById(req.params.id);
-  
   let { name, cost, users } = req.body.category;
 
   category.name = name ;
   category.cost = cost ;
   
   let userString = users.join();
-
   let newusers = userString.split(',');
   users = newusers;
 
@@ -156,8 +151,7 @@ const renderCreateCategory = (req, res) => {
 }
 
 const addCategory = async (req, res) => {
-  let tripId = req.body.tripId;
-  let newTrip = await Trip.findById(tripId)
+  let newTrip = await Trip.findOne({ name: req.body.tripName})
   res.render('createcategory', { newTrip  })
 }
 
@@ -210,14 +204,14 @@ const renderCastomizeCategory = (req, res) => {
 
 const castomizeCategory = async (req, res) => {
   let categoryName = req.body.newCategoryName
-  let tripName = req.body.tripName
   let fullCost = req.body.fullCost
   let payers = req.body.payers
+  let newTrip = await Trip.findOne({name: req.body.tripName})
 
   if (categoryName && fullCost && payers) {
     try {
       
-      res.render('castomizeCategory', { categoryName, payers, fullCost, tripName })
+      res.render('castomizeCategory', { categoryName, payers, fullCost, newTrip })
 
     } catch (e) {
       console.log(e);
@@ -232,8 +226,8 @@ const renderSavedCastomizeCategory = async (req, res) => {
   let categoryName = req.body.categoryName;
   let castomCost = req.body.castomizeCategoryCost;
   let payers = req.body.payer;
-  let tripName = req.body.tripName
-  res.render('savedCastomizeCategory', {categoryName, castomCost, payers, tripName})
+  let newTrip = await Trip.findOne({name: req.body.tripName})
+  res.render('savedCastomizeCategory', {categoryName, castomCost, payers, newTrip})
 }
 
 const saveCastomizeCategory = async (req, res) => {
@@ -241,8 +235,7 @@ const saveCastomizeCategory = async (req, res) => {
   let castomCost = req.body.castomizeCategoryCost;
   let payers = req.body.payer;
   let fullCost = req.body.fullCost;
-  let tripName = req.body.tripName
-
+  let newTrip = await Trip.findOne({ name: req.body.tripName })
   let castomCostArr = [];
 
   for (let i = 0; i < payers.length; i++) {
@@ -255,11 +248,11 @@ const saveCastomizeCategory = async (req, res) => {
         name: categoryName,
         cost: fullCost,
         users: castomCostArr,
-        trip: tripName
+        trip: newTrip
       })
 
       await newCategory.save()
-      res.render('savedCastomizeCategory', {categoryName, castomCostArr, payers, tripName})
+      res.render('savedCastomizeCategory', {categoryName, castomCostArr, payers, newTrip})
       
     } catch (e) {
       console.log(e);
