@@ -275,7 +275,7 @@ const saveCastomizeCategory = async (req, res) => {
         name: categoryName,
         cost: fullCost,
         users: castomCostArr,
-        trip: newTrip
+        trip: newTrip.name
       })
 
       await newCategory.save()
@@ -306,8 +306,8 @@ const saveEditCastom = async (req, res) => {
   if (castomCost) {
         category.name = categoryName,
         category.cost = fullCost,
-        category.users = castomCostArr,
-        category.trip = newTrip.name
+        category.users = castomCostArr
+        // category.trip = newTrip.name
     try {
 
       await category.save()
