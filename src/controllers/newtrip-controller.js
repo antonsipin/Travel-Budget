@@ -10,11 +10,11 @@ const allTrips = async (req, res) => {
 }
 
 const findCategoryById = async (req, res) => {
-  let tripName = req.body.tripName
+  let newTrip = await Trip.findOne({name: req.body.tripName})
   let category = await Category.findById(req.params.id);
   let categoryName = category.name;
 
-  res.render('editCategory', {tripName, categoryName, category})
+  res.render('editCategory', {newTrip, categoryName, category})
 }
 
 const editCategoryEqually = async (req, res) => {
@@ -197,21 +197,24 @@ const createNewCategory = async (req, res) => {
 }
 }
 
-const renderCastomizeCategory = (req, res) => {
-  let name = req.body.newCategoryName;
-  res.render('castomizeCategory', {name})
+const renderCastomizeCategory = async (req, res) => {
+  let categoryName = req.body.newCategoryName;
+  let newTrip = await Trip.findOne({ name: req.body.tripName });
+  let fullCost = req.body.fullCost;
+  let payers = req.body.payers;
+  res.render('castomizeCategory', { newTrip, categoryName, fullCost, payers });
 }
 
 const castomizeCategory = async (req, res) => {
-  let categoryName = req.body.newCategoryName
-  let fullCost = req.body.fullCost
-  let payers = req.body.payers
-  let newTrip = await Trip.findOne({name: req.body.tripName})
+  let categoryName = req.body.newCategoryName;
+  let fullCost = req.body.fullCost;
+  let payers = req.body.payers;
+  let newTrip = await Trip.findOne({ name: req.body.tripName });
 
   if (categoryName && fullCost && payers) {
     try {
       
-      res.render('castomizeCategory', { categoryName, payers, fullCost, newTrip })
+      res.render('castomizeCategory', { categoryName, payers, fullCost, newTrip });
 
     } catch (e) {
       console.log(e);
@@ -219,6 +222,30 @@ const castomizeCategory = async (req, res) => {
     }
   } else {
     res.render('castomizeCategory', {error: 'Not all fields are filled!'})
+}
+}
+
+const editCategoryCastomize = async (req, res) => {
+  let category = await Category.findById(req.body.categoryId);
+  let newTrip = await Trip.findOne({name: category.trip});
+  let categoryName = category.name;
+  let fullCost = category.cost;
+  let payersObject = category.users;
+  let payers = payersObject.map((el) => {
+    return el.name
+  })
+
+  if (categoryName && fullCost && payers) {
+    try {
+      
+      res.render('editCastomizeCategory', { category, categoryName, payers, fullCost, newTrip });
+
+    } catch (e) {
+      console.log(e);
+      res.render('editCastomizeCategory', { error: 'Incorrect data!' })
+    }
+  } else {
+    res.render('editCastomizeCategory', {error: 'Not all fields are filled!'})
 }
 }
 
@@ -263,6 +290,38 @@ const saveCastomizeCategory = async (req, res) => {
 }
 }
 
+const saveEditCastom = async (req, res) => {
+  let category = await Category.findById(req.body.categoryId)
+  let categoryName = category.name;
+  let castomCost = req.body.castomizeCategoryCost;
+  let payers = req.body.payer;
+  let fullCost = category.cost;
+  let newTrip = await Trip.findOne({ name: category.trip });
+  let castomCostArr = [];
+
+  for (let i = 0; i < payers.length; i++) {
+    castomCostArr.push({ name: payers[i], cost: castomCost[i] })
+  }
+  
+  if (castomCost) {
+        category.name = categoryName,
+        category.cost = fullCost,
+        category.users = castomCostArr,
+        category.trip = newTrip.name
+    try {
+
+      await category.save()
+      res.render('savedCastomizeCategory', {categoryName, castomCostArr, payers, newTrip})
+      
+    } catch (e) {
+      console.log(e);
+      res.render('savedCastomizeCategory', { error: 'Incorrect data!' })
+    }
+  } else {
+    res.render('savedCastomizeCategory', {error: 'Not all fields are filled!'})
+}
+}
+
 module.exports = {
   renderNewtrip,
   renderCreateCategory,
@@ -278,5 +337,6 @@ module.exports = {
   addCategory,
   findCategoryById,
   editCategoryEqually,
-  // editCategoryCastomize
+  editCategoryCastomize,
+  saveEditCastom
 }
