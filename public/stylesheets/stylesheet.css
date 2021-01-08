@@ -7,5 +7,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 30px;
+}
+
+.signUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
