@@ -1,12 +1,13 @@
 const Trip = require('../models/trip-model')
 const Category = require('../models/category-model')
+const User = require('../models/user-model')
 const renderTripReport = (req, res) => {
   res.render('summary')
 }
 
 const allTrips = async (req, res) => {
-  const allTrips = await Trip.find();
-  res.render('allTrips', {allTrips})
+  const allTrips = await Trip.find({ email: req.session.user.email});
+  res.render('allTrips', { allTrips })
 }
 
 const findCategoryById = async (req, res) => {
@@ -116,58 +117,64 @@ const findTripById = async (req, res) => {
   res.render('summary', { trip, allCategories, resultNames, resulCostArr, maxSumObj, src, src2, qrSrc} );
 }
 
-const renderNewtrip = (req, res) => {
-  res.render('newtrip')
+const renderNewtrip = async (req, res) => {
+  res.render('newtrip');
 }
 
 const createNewTrip = async (req, res) => {
   let tripName = req.body.newTripName;
   let tripUsers = req.body.tripUsers;
-  let tripUsersResult = tripUsers.split(',')
-  let newTrip
+  let tripUsersResult = tripUsers.split(',');
+  let user = await User.findOne({ email: req.session.user.email });
+  let newTrip;
+  let trips = [];
+  trips.push(tripName);
+  user.trips = [...user.trips, ...trips];
 
   if (tripName && tripUsers) {
     try {
           newTrip = new Trip({
           name: tripName,
-          users: tripUsersResult
+          users: tripUsersResult,
+          email: req.session.user.email
         })
 
-      await newTrip.save()
-      res.render('createcategory', { tripName, tripUsersResult, newTrip })
+      await newTrip.save();
+      await user.save();
+      res.render('createcategory', { tripName, tripUsersResult, newTrip });
 
     } catch (e) {
       console.log(e);
-      res.render('newtrip', { error: 'This trip already exist or incorrect data!', tripName, tripUsersResult, newTrip  })
+      res.render('newtrip', { error: 'This trip already exist or incorrect data!', tripName, tripUsersResult, newTrip });
     }
   } else {
-    res.render('newtrip', {error: 'Not all fields are filled!', tripName, tripUsersResult, newTrip})
+    res.render('newtrip', { error: 'Not all fields are filled!', tripName, tripUsersResult, newTrip });
 } 
 }
 
 const renderCreateCategory = (req, res) => {
   let tripName = req.body.tripName;
-  res.render('createcategory', { tripName })
+  res.render('createcategory', { tripName });
 }
 
 const addCategory = async (req, res) => {
-  let newTrip = await Trip.findOne({ name: req.body.tripName})
-  res.render('createcategory', { newTrip  })
+  let newTrip = await Trip.findOne({ name: req.body.tripName });
+  res.render('createcategory', { newTrip });
 }
 
 const createNewCategory = async (req, res) => {
   let categoryName = req.body.newCategoryName;
   let cost = req.body.fullCost;
   let tripId = req.body.tripId;
-  let newTrip = await Trip.findById(tripId)
-  let payers = newTrip.users
-  let tripCategories = newTrip.categories
-  let newCategory
-  let tripName = newTrip.name
-  let payerCost = Math.round(cost / payers.length)
-  let payerCostArr = []
+  let newTrip = await Trip.findById(tripId);
+  let payers = newTrip.users;
+  let tripCategories = newTrip.categories;
+  let newCategory;
+  let tripName = newTrip.name;
+  let payerCost = Math.round(cost / payers.length);
+  let payerCostArr = [];
   for (let i = 0; i < payers.length; i++) {
-    payerCostArr.push({ name: payers[i], cost: payerCost })
+    payerCostArr.push({ name: payers[i], cost: payerCost });
   }
 
   if (categoryName && cost && payers) {
@@ -180,20 +187,20 @@ const createNewCategory = async (req, res) => {
         trip: tripName
       })
       
-      tripCategories.push(newCategory)
-      newTrip.categories = tripCategories
+      tripCategories.push(newCategory);
+      newTrip.categories = tripCategories;
 
-      await newCategory.save()
-      await newTrip.save()
+      await newCategory.save();
+      await newTrip.save();
 
-      res.render('equally', { categoryName, payers, payerCost, tripName , newCategory, newTrip})
+      res.render('equally', { categoryName, payers, payerCost, tripName, newCategory, newTrip });
 
     } catch (e) {
       console.log(e);
-      res.render('createcategory', { error: 'This category already exist or incorrect data!', categoryName, payers, payerCost, tripName , newCategory, newTrip })
+      res.render('createcategory', { error: 'This category already exist or incorrect data!', categoryName, payers, payerCost, tripName, newCategory, newTrip });
     }
   } else {
-    res.render('createcategory', {error: 'Not all fields are filled!', categoryName, payers, payerCost, tripName , newCategory, newTrip})
+    res.render('createcategory', { error: 'Not all fields are filled!', categoryName, payers, payerCost, tripName, newCategory, newTrip });
 }
 }
 
@@ -307,7 +314,6 @@ const saveEditCastom = async (req, res) => {
         category.name = categoryName,
         category.cost = fullCost,
         category.users = castomCostArr
-        // category.trip = newTrip.name
     try {
 
       await category.save()

@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
   password: {
     required: true,
     type: String
-  }
+  },
+  trips: Array
 })
 
 module.exports = mongoose.model('User', userSchema)
