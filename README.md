@@ -16,6 +16,7 @@ The app is available on Heroku: https://travelbudget-app.herokuapp.com
   How to start the app locally:
   </h3> 
   
+  
   <p>
   <ul>
     <li>
@@ -32,6 +33,7 @@ The app is available on Heroku: https://travelbudget-app.herokuapp.com
     </li>
   </ul>
   </p> 
+  
 <h3 align="center">
  
   <p>Authorization:</p><br />
