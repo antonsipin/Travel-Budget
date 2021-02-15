@@ -34,7 +34,6 @@ The app is available on Heroku: https://travelbudget-app.herokuapp.com
   </ul>
   </p> 
   
-  
 <h3 align="center">
  
   <p>Authorization:</p><br />
