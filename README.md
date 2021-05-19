@@ -37,7 +37,6 @@ The app is available on Heroku: https://travelbudget-app.herokuapp.com
   <p>Adding a trip:</p><br />
   <img src="public/2.gif" width="700" title="Adding a trip"><br />
   <p>Adding an expense category:</p><br />
-  
   <img src="public/3.gif" width="700" title="Adding an expense category"><br />
   <p>Editing an expense category:</p><br />
   
