@@ -41,7 +41,6 @@ The app is available on Heroku: https://travelbudget-app.herokuapp.com
   <p>Editing an expense category:</p><br />
   <img src="public/4.gif" width="700" title="Editing an expense category"><br />
   <p>Post-trip report:</p><br />
-  
   <img src="public/5.gif" width="700" title="Post-trip report"><br />
   <p>Automatic email report sending:</p><br />
   
