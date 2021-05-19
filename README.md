@@ -53,5 +53,4 @@ The app is available on Heroku: https://travelbudget-app.herokuapp.com
   
   <img src="public/6.gif" width="700" alt="Automatic email report sending"><br />
   
-  
  </h3>
