@@ -15,6 +15,7 @@ Technologies used: HTML, CSS, JavaScript, MongoDB Cluster, Handlebars, Mongoose,
 <h3>
  
 The app is available on Heroku: https://travelbudget-app.herokuapp.com
+ 
 </h3>
 
  <h3> 
