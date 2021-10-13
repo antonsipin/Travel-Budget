@@ -7,6 +7,7 @@ Travel Badget is a project for a customer. This is an application for conducting
 </p>
 
 <h3>
+ 
 Technologies used: HTML, CSS, JavaScript, MongoDB Cluster, Handlebars, Mongoose, Express, Node.js, Material-UI, Nodemailer, REST API, Adaptive layout. 
 </h3>
 
