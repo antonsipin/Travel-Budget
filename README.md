@@ -5,6 +5,7 @@
 Travel Badget is a project for a customer. This is an application for conducting convenient settlements with friends while traveling. While traveling in the app, you need to keep a short note of expenses, for example "Transfer" or "Flights" and indicate the participants. At the end of the trip, the application will generate a detailed report on expenses during the trip and even display it in the form of diagrams, which can then be sent by Email to any participant in the trip.
 </b> <br />
 </p>
+
 <h3>
 Technologies used: HTML, CSS, JavaScript, MongoDB Cluster, Handlebars, Mongoose, Express, Node.js, Material-UI, Nodemailer, REST API, Adaptive layout. 
 </h3>
