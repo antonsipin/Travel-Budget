@@ -11,8 +11,7 @@ Travel Badget is a project for a customer. This is an application for conducting
  </h3>
 
 <h3>
- 
-The app is available on Heroku: https://travelbudget-app.herokuapp.com
+ The app is available on Heroku: https://travelbudget-app.herokuapp.com
  
 </h3>
 
