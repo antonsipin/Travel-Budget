@@ -33,7 +33,8 @@ Travel Badget is a project for a customer. This is an application for conducting
       Run the app <b><i> npm start </i></b> (The app starts at http://localhost:3000. Open this link in browser and you will be able to test the app)
     </li>
   </ul>
-  </p> 
+  </p>
+  
 <h3 align="center">
   <p>Authorization:</p><br />
   <img src="public/1.gif" width="700" title="Authorization"><br />
