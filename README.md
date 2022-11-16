@@ -17,7 +17,6 @@ Travel Badget is a project for a customer. This is an application for conducting
  <h3>
    How to start the app locally:
    </h3>
-   
   <p>
   <ul>
     <li>
