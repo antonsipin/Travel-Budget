@@ -5,25 +5,12 @@
 Travel Badget is a project for a customer. This is an application for conducting convenient settlements with friends while traveling. While traveling in the app, you need to keep a short note of expenses, for example "Transfer" or "Flights" and indicate the participants. At the end of the trip, the application will generate a detailed report on expenses during the trip and even display it in the form of diagrams, which can then be sent by Email to any participant in the trip.
 </b> <br />
 </p>
-
 <h3>
- 
  Technologies used: HTML, CSS, JavaScript, MongoDB Cluster, Handlebars, Mongoose, Express, Node.js, Material-UI, Nodemailer, REST API, Adaptive layout.
- 
  </h3>
- 
-<h3>
- 
- The app is available on Heroku: https://travelbudget-app.herokuapp.com
- 
- </h3>
- 
  <h3>
- 
    How to start the app locally:
- 
    </h3>
-   
   <p>
   <ul>
     <li>
@@ -40,9 +27,7 @@ Travel Badget is a project for a customer. This is an application for conducting
     </li>
   </ul>
   </p>
-  
 <h3 align="center">
- 
   <p>Authorization:</p><br />
   <img src="public/1.gif" width="700" title="Authorization"><br />
   <p>Adding a trip:</p><br />
@@ -55,5 +40,4 @@ Travel Badget is a project for a customer. This is an application for conducting
   <img src="public/5.gif" width="700" title="Post-trip report"><br />
   <p>Automatic email report sending:</p><br />
   <img src="public/6.gif" width="700" alt="Automatic email report sending"><br />
-  
  </h3>
