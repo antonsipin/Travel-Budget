@@ -34,12 +34,12 @@ const editCategoryEqually = async (req, res) => {
   let payerCostArr = []
   for (let i = 0; i < users.length; i++) {
     payerCostArr.push({ name: users[i], cost: payerCost })
-  }
+    }
 
   if (name && cost && users) {
     try {
 
-  category.users = payerCostArr;
+      category.users = payerCostArr;
 
       let categoryName = name;
       let payers = users;
@@ -58,7 +58,7 @@ const editCategoryEqually = async (req, res) => {
 }
 }
 
-const findTripById = async (req, res) => {
+  const findTripById = async (req, res) => {
   let trip = await Trip.findById(req.params.id);
   let allCategories = await Category.find({ trip: trip.name });
 
@@ -70,13 +70,11 @@ const findTripById = async (req, res) => {
   let names = []
   let usersArr = users.flat()
 
-
   for (let i = 0; i < usersArr.length; i++) {
     names.push(usersArr[i].name)
   }
   
   resultNames = [...new Set(names)]
-  
   let userSpent = 0;
   let resulCostArr = [];
 

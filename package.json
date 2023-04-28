@@ -43,6 +43,7 @@
     "unirest": "^0.6.0"
   },
   "devDependencies": {
+    "eslint": "^8.39.0",
     "nodemon": "^2.0.6"
   }
 }

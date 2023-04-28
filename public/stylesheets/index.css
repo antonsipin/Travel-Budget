@@ -13,14 +13,11 @@
   padding: 15px;
 }
 
-/* ETO DLYA HOME PAGE NAV */
-/* ETO NA TELEFON  */
 [class*="col-"] {
   width: 100%;
 }
 
 @media only screen and (min-width: 600px) {
-  /* ETO DLYA IPAD */
   .col-s-1 {
     width: 8.33%;
   }
@@ -59,7 +56,6 @@
   }
 }
 @media only screen and (min-width: 768px) {
-  /* ETO DLYA KOMPA: */
   .col-1 {
     width: 8.33%;
   }
