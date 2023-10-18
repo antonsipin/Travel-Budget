@@ -32,15 +32,15 @@ Travel Badget is a project for a customer. This is an application for conducting
   
 <h3 align="center">
   <p>Authorization:</p><br />
-  <img src="./public/1.gif" width="700" title="Authorization"><br />
+  <img src="https://github.com/antonsipin/Travel-Budget/assets/46906477/4884a7f3-0f69-42ec-b78e-833cf7ee9308" width="700" title="Authorization"><br />
   <p>Adding a trip:</p><br />
-  <img src="public/2.gif" width="700" title="Adding a trip"><br />
+  <img src="https://github.com/antonsipin/Travel-Budget/assets/46906477/671983b1-64e0-4da6-821b-0ab3c0565f2e" width="700" title="Adding a trip"><br />
   <p>Adding an expense category:</p><br />
-  <img src="public/3.gif" width="700" title="Adding an expense category"><br />
+  <img src="https://github.com/antonsipin/Travel-Budget/assets/46906477/0f775e5c-a58a-4bfa-af5f-85bfeeaa32f2" width="700" title="Adding an expense category"><br />
   <p>Editing an expense category:</p><br />
-  <img src="public/4.gif" width="700" title="Editing an expense category"><br />
+  <img src="https://github.com/antonsipin/Travel-Budget/assets/46906477/3ab5b6aa-e0d4-4949-bade-16c5b50dae9e" width="700" title="Editing an expense category"><br />
   <p>Post-trip report:</p><br />
-  <img src="public/5.gif" width="700" title="Post-trip report"><br />
+  <img src="https://github.com/antonsipin/Travel-Budget/assets/46906477/2af87db1-b5dd-4a67-8be9-bd50b3c9e8c8" width="700" title="Post-trip report"><br />
   <p>Automatic email report sending:</p><br />
-  <img src="public/6.gif" width="700" alt="Automatic email report sending"><br />
+  <img src="https://github.com/antonsipin/Travel-Budget/assets/46906477/599328cd-0968-4b97-b1d8-c9324c306ff7" width="700" alt="Automatic email report sending"><br />
  </h3>
