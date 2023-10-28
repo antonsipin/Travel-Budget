@@ -78,7 +78,7 @@
     </div>
   </div></br>
   <form class="account" name="mailForm" method="POST" action="/mail" id="mailForm">
-    <button id="sendMailBtn" formaction="/mail" formmethod="post"
+    <button id="sendMailBtn" formaction="/mail?id={{trip._id}}" formmethod="post"
       class="waves-effect waves-light btn-large nav-wrapper green lighten-3" type="submit" value="Pay castomize">Send
       report by email</button>
   </form>

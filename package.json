@@ -9,7 +9,7 @@
     "production": "cross-env NODE_ENV=production node app.js"
   },
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,7 @@
     "mongoose": "^5.10.11",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.1",
-    "nodemailer": "^6.4.14",
+    "nodemailer": "^6.9.7",
     "request": "^2.88.2",
     "session-file-store": "^1.5.0",
     "unirest": "^0.6.0"
