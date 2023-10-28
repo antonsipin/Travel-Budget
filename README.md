@@ -10,6 +10,10 @@ Travel Badget is a project for a customer. This is an application for conducting
  Technologies used: HTML, CSS, JavaScript, MongoDB, Handlebars SSR, Mongoose, MongoStore, Express, Express Session, Node.js, Material-UI, Nodemailer, REST API, Adaptive layout.
 </h3>
 
+<h3>
+   This app is available by link: http://62.113.103.202:3200/
+</h3>
+
  <h3>
    How to start the app locally:
    </h3>
