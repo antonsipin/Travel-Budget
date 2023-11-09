@@ -27,7 +27,10 @@ hbs.registerHelper('htmlTemplate', (name) => {
   const template = fs.readFileSync(`./src/views/${name}.hbs`, 'utf8')
   return template
 })
-app.use(logger('dev'))
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+app.use(logger('combined', { stream: accessLogStream }))
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
