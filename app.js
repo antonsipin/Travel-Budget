@@ -28,8 +28,8 @@ hbs.registerHelper('htmlTemplate', (name) => {
   return template
 })
 
-const accessLogStream = fs.createWriteStream(path.join(`${__dirname}/src/logs`, 'server.log'), { flags: 'a' })
-app.use(logger('combined', { stream: accessLogStream }))
+const serverLogStream = fs.createWriteStream(path.join(`${__dirname}/src/logs`, 'server.log'), { flags: 'a' })
+app.use(logger('combined', { stream: serverLogStream }))
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
