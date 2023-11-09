@@ -28,7 +28,7 @@ hbs.registerHelper('htmlTemplate', (name) => {
   return template;
 })
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -43,7 +43,7 @@ app.use(session({
   cookie: {
     secure: false,
   },
-})); 
+}))
 
 app.use(methodOverride('_method'))
 app.use(userMiddle.userName)
@@ -55,10 +55,10 @@ app.use('/mail', mailRoute)
 
 app.use(function (req, res, next) {
   res.render('404')
-});
+})
 
 app.listen(PORT, () => {
   console.log('Server has been started on port: ', PORT)
 })
 
-module.exports = app;
+module.exports = app
