@@ -20,7 +20,7 @@ const renderLogIn = (req, res) => {
 }
 
 const signUp = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password } = req.body
    
 try {
      
@@ -78,8 +78,8 @@ const signIn = async (req, res) => {
 const logout = (req, res) => {
   req.session.destroy(function (err) {
     if (err) throw new Error(err)
-    res.clearCookie(req.app.get('session cookie name'));
-    return res.redirect('/');
+    res.clearCookie(req.app.get('session cookie name'))
+    return res.redirect('/')
   })
 }
 
