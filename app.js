@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require('express')
-const logger = require('morgan');
+const logger = require('morgan')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const mongoose = require('mongoose')
@@ -25,9 +25,9 @@ app.set('views', path.join(__dirname, 'src', 'views'))
 hbs.registerPartials(path.join(__dirname, 'src', 'views', 'partials'))
 hbs.registerHelper('htmlTemplate', (name) => {
   const template = fs.readFileSync(`./src/views/${name}.hbs`, 'utf8')
-  return template;
+  return template
 })
-app.use(logger('dev'));
+app.use(logger('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
