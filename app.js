@@ -28,7 +28,7 @@ hbs.registerHelper('htmlTemplate', (name) => {
   return template
 })
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+const accessLogStream = fs.createWriteStream(path.join(`${__dirname}/src/logs`, 'server.log'), { flags: 'a' })
 app.use(logger('combined', { stream: accessLogStream }))
 
 app.use(express.static(path.join(__dirname, 'public')))
