@@ -2,7 +2,7 @@ require('dotenv').config()
 const nodemailer = require('nodemailer')
 
 const renderSendMailForm = (req, res) => {
-  res.render('testMail')
+  res.render('Mail')
 }
 
 const sendMail = async (req, res) => {
