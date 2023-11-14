@@ -1,7 +1,11 @@
 require('dotenv').config()
+const Login = require('../views/Login')
+const SignUp = require('../views/SignUp')
 const bcrypt = require('bcrypt')
 const User = require('../models/user-model')
 const salt = process.env.saltRounds || 10
+const { getHtml, docType } = require('../utils/index')
+const Account = require('../views/Account')
 
 const serializeUser = (user) => {
   return {
@@ -12,39 +16,40 @@ const serializeUser = (user) => {
 }
 
 const renderSignUp = (req, res) => {
-  res.render('signup')
+  res.write(docType)
+  res.end(getHtml(SignUp, { error: '' }))
 }
 
 const renderLogIn = (req, res) => {
-  res.render('login')
+  res.write(docType)
+  res.end(getHtml(Login, { error: '' }))
 }
 
 const signUp = async (req, res) => {
   const { name, email, password } = req.body
-   
-try {
-     
-if (name && email && password) {
-  const hashPass = await bcrypt.hash(password, Number(salt))
+  try {
+      
+    if (name && email && password) {
+      const hashPass = await bcrypt.hash(password, Number(salt))
 
-    const newUser = new User({
-        email,
-        name,
-        password: hashPass, 
-      })
+        const newUser = new User({
+            email,
+            name,
+            password: hashPass, 
+          })
 
-      await newUser.save()
-      req.session.user = serializeUser(newUser)
-      res.redirect('/account')
-    } 
-   else {
-    res.render('signup', { error: 'Missing Email or Password' })
-  }
-    } catch (e) {
-  
-      res.render('signup', { error: 'User not found please try again' })
+          await newUser.save()
+          req.session.user = serializeUser(newUser)
+          res.redirect('/account')
+        } 
+      else {
+        res.write(docType)
+        res.end(getHtml(SignUp, { error: 'Missing Email or Password' }))
+      }
+  } catch (e) {
+        res.write(docType)
+        res.end(getHtml(SignUp, { error: 'User not found please try again' }))
     }
-
 }
 
 const signIn = async (req, res) => {
@@ -57,21 +62,24 @@ const signIn = async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.password)
         if (validPassword) {
           req.session.user = serializeUser(user)
-          res.redirect('/account')
+          res.write(docType)
+          res.end(getHtml(Account, { error: '', userName: req.session?.user?.name }))
         } else {
-          res.render('login', { error: 'Wrong Email or Password' })
+          res.write(docType)
+          res.end(getHtml(Login, { error: 'Wrong Email or Password' }))
         }
       } else {
-        res.render('login', { error: 'Wrong Email or Password' })
+          res.write(docType)
+          res.end(getHtml(Login, { error: 'Wrong Email or Password' }))
       }
-
     } catch (e) {
-  
-      res.render('login', { error: 'User not found please try again' })
+        res.write(docType)
+        res.end(getHtml(Login, { error: 'User not found please try again' }))
     }
 
   } else {
-    res.render('login', { error: 'Missing Email or Password' })
+    res.write(docType)
+    res.end(getHtml(Login, { error: 'Missing Email or Password' }))
   }
 }
 
