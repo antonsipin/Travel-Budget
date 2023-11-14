@@ -1,6 +1,7 @@
 const Trip = require('../models/trip-model')
 const Category = require('../models/category-model')
 const User = require('../models/user-model')
+const { getId, getChartSourceLink } = require('../utils/index')
 
 const renderTripReport = async (req, res) => {
   res.render('Summary')
@@ -101,10 +102,6 @@ const editCategoryEqually = async (req, res) => {
   let userSpent = 0
   let resulCostArr = []
 
-  function getId(max = 10000) {
-    return Math.floor(Math.random() * max);
-  }
-
   for (let i = 0; i < resultNames.length; i++) {
     for (let j = 0; j < usersArr.length; j++) {
       if (usersArr[j].name === resultNames[i]) {
@@ -133,12 +130,6 @@ const editCategoryEqually = async (req, res) => {
     sum += resulCostArr[i].cost
   }
 
-  let src = `https://quickchart.io/chart?c={type:'pie',data:{labels:[${result}], datasets:[{data:[${resultCost}]}]}}`
-  
-  let src2 = `https://quickchart.io/chart?c={type:'doughnut',data:{labels:[${result}],datasets:[{data:[${resultCost}]}]},options:{plugins:{doughnutlabel:{labels:[{text:'${sum}',font:{size:20}},{text:'total'}]}}}}`
-
-  let qrSrc = `https://quickchart.io/qr?text=mail.ru`
- 
   res.render('Summary', {
     userName: req.session?.user?.name,
     trip, 
@@ -146,9 +137,7 @@ const editCategoryEqually = async (req, res) => {
     resultNames, 
     resulCostArr, 
     maxSumObj, 
-    src, 
-    src2, 
-    qrSrc
+    chartSourceLink: getChartSourceLink(result, resultCost, sum)
   } )
 }
 

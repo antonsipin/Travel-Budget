@@ -1,7 +1,7 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const Summary = ({ userName, trip, allCategories, resultNames, resulCostArr, maxSumObj, src, src2, qrSrc }) => {
+const Summary = ({ userName, trip, allCategories, resultNames, resulCostArr, maxSumObj, chartSourceLink }) => {
     return (
         <Layout userName={userName}>
             <div className="container">
@@ -87,7 +87,7 @@ const Summary = ({ userName, trip, allCategories, resultNames, resulCostArr, max
                     <br />
 
                     <div className="account">
-                        <img width="595" src={src2} /> 
+                        <img width="595" src={chartSourceLink} /> 
                     </div>
                     <br />
 
