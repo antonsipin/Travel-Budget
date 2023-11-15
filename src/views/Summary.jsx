@@ -3,7 +3,7 @@ const React = require('react')
 const Layout = require('./Layout')
 const Mail = require('./Mail')
 
-const Summary = ({ userName, trip, allCategories, resultNames, resulCostArr, maxSumObj, chartSourceLink }) => {
+const Summary = ({ userName, trip, allCategories, resultNames, resulCostArr, maxSumObj, chartSourceLink, error }) => {
     return (
         <Layout userName={userName}>
             <div className="container">
@@ -16,6 +16,12 @@ const Summary = ({ userName, trip, allCategories, resultNames, resulCostArr, max
                         </div>
                     </h2>
                 </div>
+
+                {error && 
+                <h3>
+                    Something went wrong...   
+                </h3>
+                }
 
                     <div className="account">
                         <div className="col s12">
