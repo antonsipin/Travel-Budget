@@ -1,14 +1,15 @@
 require('dotenv').config()
 const nodemailer = require('nodemailer')
-
-const renderSendMailForm = (req, res) => {
-  res.render('Mail')
-}
+const { imgUrl } = require('../utils/index')
+const { getHtml, docType, getMailUrl, getLetterHtml } = require('../utils/index')
+const SendMailStatus = require('../views/SendMailStatus')
 
 const sendMail = async (req, res) => {
   try {
-      const { id } = req.query
-      const URL = `http://${process.env.HOST}:${process.env.PORT}/newtrip/${id}`
+      const { email, id, tripName, users } = req.body
+
+      const URL = getMailUrl(id)
+      const letterHtml = getLetterHtml (imgUrl, URL, tripName, users)
 
       let transporter = nodemailer.createTransport({
         host: process.env.MAIL_HOST,
@@ -27,27 +28,47 @@ const sendMail = async (req, res) => {
           console.log('Server is ready to take our messages')
         }
       })
-
-  
+      
         const result = await transporter.sendMail({
           from: `"From Travel Budget" <${process.env.MAIL_USER}>`,
-          to: `${process.env.MAIL_USER}`,
-          subject: 'Here is your report ✔',
-          text: `Here is your report`,
-          html: `<p>Here is your report: ${URL}</p>`
+          to: `${email}`,
+          subject: `Here is your ${tripName} trip report ✔`,
+          text: `Hello from Travel Budget! Here is your ${tripName} trip report`,
+          html: letterHtml
         })
         if (result.accepted.length) {
-          console.log('The report has been sent')
+          res.write(docType)
+          res.end(getHtml(SendMailStatus, {
+              error: '',
+              email: email ? email : '',
+              id: id || '', 
+              tripName: tripName || '', 
+              users: users || []
+          }))
         } else {
-          console.log('The report not sent')
+          res.write(docType)
+          res.end(getHtml(SendMailStatus, {
+              error: '',
+              email: email ? email : '',
+              id: id || '', 
+              tripName: tripName || '', 
+              users: users || []
+          }))
         }
-        res.redirect('/')
     } catch (e) {
-      console.log(e)
+          console.log(e)
+
+          res.write(docType)
+          res.end(getHtml(SendMailStatus, {
+              error: '',
+              email: email ? email : '',
+              id: id || '', 
+              tripName: tripName || '', 
+              users: users || []
+          }))
     }
 }
 
 module.exports = {
-  renderSendMailForm,
   sendMail
 }

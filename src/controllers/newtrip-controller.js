@@ -1,7 +1,8 @@
 const Trip = require('../models/trip-model')
 const Category = require('../models/category-model')
 const User = require('../models/user-model')
-const { getId, getChartSourceLink } = require('../utils/index')
+const { getId, getChartSourceLink, getHtml, docType } = require('../utils/index')
+const Summary = require('../views/Summary')
 
 const renderTripReport = async (req, res) => {
   res.render('Summary')
@@ -83,7 +84,7 @@ const editCategoryEqually = async (req, res) => {
 }
 
   const findTripById = async (req, res) => {
-  let trip = await Trip.findById(req.params.id);
+  let trip = await Trip.findById(req.params.id)
   let allCategories = await Category.find({ trip: trip.name })
 
   let users = []
@@ -130,7 +131,8 @@ const editCategoryEqually = async (req, res) => {
     sum += resulCostArr[i].cost
   }
 
-  res.render('Summary', {
+  res.write(docType)
+  res.end(getHtml(Summary, {
     userName: req.session?.user?.name,
     trip, 
     allCategories, 
@@ -138,7 +140,7 @@ const editCategoryEqually = async (req, res) => {
     resulCostArr, 
     maxSumObj, 
     chartSourceLink: getChartSourceLink(result, resultCost, sum)
-  } )
+  }))
 }
 
 const renderNewtrip = async (req, res) => {
