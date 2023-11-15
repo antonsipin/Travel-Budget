@@ -30,7 +30,8 @@ const SendMailStatus = ({ userName, error, email, id, tripName, users }) => {
                     name="mailForm" 
                     method="POST" 
                     action="/mail" 
-                    id="mailForm">
+                    id="mailForm"
+                >
 
                     <input 
                         required
@@ -72,7 +73,7 @@ const SendMailStatus = ({ userName, error, email, id, tripName, users }) => {
                         formAction="/mail" 
                         formMethod="POST"
                         style={{
-                            width: "100%", 
+                            width: "100%",
                             height: "50px", 
                             margin: "15px 0 50px 0", 
                             borderRadius: "8px",
@@ -83,25 +84,32 @@ const SendMailStatus = ({ userName, error, email, id, tripName, users }) => {
                         type="submit">
                             Send the report again
                     </button>
-                    <button 
-                        id="sendMailBtn" 
-                        formAction="/account" 
-                        formMethod="GET"
-                        style={{
-                            width: "100%", 
-                            height: "50px", 
-                            margin: "15px 0 50px 0", 
-                            borderRadius: "8px",
-                            fontSize: "1.3rem",
-                            fontWeight: "700"
-                        }} 
-                        className="btn btn-primary" 
-                        type="submit">
-                            Back to account
-                    </button>
+                    
                     <br />
                 </form>
                 <br />
+                    <form
+                        name="toAccountForm" 
+                        method="GET" 
+                        action="/accountl" 
+                        id="toAccountForm"
+                    >
+                        <button
+                            formAction="/account" 
+                            id="toAccountBtn" 
+                            style={{
+                                width: "100%",
+                                height: "50px", 
+                                margin: "15px 0 50px 0", 
+                                borderRadius: "8px",
+                                fontSize: "1.3rem",
+                                fontWeight: "700"
+                            }} 
+                            className="btn btn-primary" 
+                            type="submit">
+                                Back to account
+                        </button>
+                    </form>    
             </div>
         </Layout>
     )
