@@ -56,16 +56,7 @@ const sendMail = async (req, res) => {
           }))
         }
     } catch (e) {
-          console.log(e)
-
-          res.write(docType)
-          res.end(getHtml(SendMailStatus, {
-              error: '',
-              email: email ? email : '',
-              id: id || '', 
-              tripName: tripName || '', 
-              users: users || []
-          }))
+      console.log(e)
     }
 }
 

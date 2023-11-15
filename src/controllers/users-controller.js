@@ -16,18 +16,26 @@ const serializeUser = (user) => {
 }
 
 const renderSignUp = (req, res) => {
-  res.write(docType)
-  res.end(getHtml(SignUp, { error: '' }))
+  try {
+    res.write(docType)
+    res.end(getHtml(SignUp, { error: '' }))
+  } catch (e) {
+    console.log(e.message)
+  }
 }
 
 const renderLogIn = (req, res) => {
-  res.write(docType)
-  res.end(getHtml(Login, { error: '' }))
+  try {
+    res.write(docType)
+    res.end(getHtml(Login, { error: '' }))
+  } catch (e) {
+    console.log(e.message)
+  }
 }
 
 const signUp = async (req, res) => {
-  const { name, email, password } = req.body
   try {
+    const { name, email, password } = req.body
       
     if (name && email && password) {
       const hashPass = await bcrypt.hash(password, Number(salt))
@@ -47,16 +55,19 @@ const signUp = async (req, res) => {
         res.end(getHtml(SignUp, { error: 'Missing Email or Password' }))
       }
   } catch (e) {
-        res.write(docType)
-        res.end(getHtml(SignUp, { error: 'User not found please try again' }))
+      console.log(e.message)
+
+      res.write(docType)
+      res.end(getHtml(SignUp, { error: 'User not found please try again' }))
     }
 }
 
 const signIn = async (req, res) => {
+  try {
+
   const { email, password } = req.body
 
   if (email && password) {
-    try {
       const user = await User.findOne({ email }).lean()
       if (user) {
         const validPassword = await bcrypt.compare(password, user.password)
@@ -72,23 +83,26 @@ const signIn = async (req, res) => {
           res.write(docType)
           res.end(getHtml(Login, { error: 'Wrong Email or Password' }))
       }
-    } catch (e) {
-        res.write(docType)
-        res.end(getHtml(Login, { error: 'User not found please try again' }))
-    }
-
   } else {
     res.write(docType)
     res.end(getHtml(Login, { error: 'Missing Email or Password' }))
   }
+    } catch (e) {
+        res.write(docType)
+        res.end(getHtml(Login, { error: 'User not found please try again' }))
+    }
 }
 
 const logout = (req, res) => {
-  req.session.destroy(function (err) {
-    if (err) throw new Error(err)
-    res.clearCookie(req.app.get('session cookie name'))
-    return res.redirect('/')
-  })
+  try {
+    req.session.destroy(function (err) {
+      if (err) throw new Error(err)
+      res.clearCookie(req.app.get('session cookie name'))
+      return res.redirect('/')
+    })
+  } catch (e) {
+    console.log(e.message)
+  }
 }
 
 module.exports = {
