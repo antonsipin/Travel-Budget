@@ -14,10 +14,12 @@ const renderTripReport = async (req, res) => {
 
 const allTrips = async (req, res) => {
   try {
-    const allTrips = await Trip.find({ email: req.session?.user?.email})
+    const { user } = req.session
+
+    const allTrips = await Trip.find({ email: user?.email})
     res.render('AllTrips', { 
       allTrips, 
-      userName: req.session?.user?.name 
+      userName: user?.name 
     })  
   } catch (e) {
     console.log(e)
@@ -26,8 +28,11 @@ const allTrips = async (req, res) => {
 
 const findCategoryById = async (req, res) => {
   try {
-    const newTrip = await Trip.findOne({name: req.body.tripName})
-    const category = await Category.findById(req.params.id)
+    const { tripName } = req.body
+    const { id } = req.params
+
+    const newTrip = await Trip.findOne({name: tripName})
+    const category = await Category.findById(id)
     const categoryName = category.name
 
     res.render('EditCategory', {
@@ -44,19 +49,21 @@ const findCategoryById = async (req, res) => {
 
 const editCategoryEqually = async (req, res) => {
   try {
+    const { tripName, name, cost } = req.body
+    const { id } = req.params
+    let { users } = req.body
 
-  const newTrip = await Trip.findOne({ name: req.body.tripName })
-  let category = await Category.findById(req.params.id)
-  let { name, cost, users } = req.body
-  category.name = name 
-  category.cost = cost
-  
-  const userString = users.join()
-  const newUsers = userString.split(',')
-  users = newUsers
+    const newTrip = await Trip.findOne({ name: tripName })
+    let category = await Category.findById(id)
+    category.name = name 
+    category.cost = cost
+    
+    const userString = users.join()
+    const newUsers = userString.split(',')
+    users = newUsers
 
-  const payerCost = Math.round(cost / users.length)
-  const payerCostArr = []
+    const payerCost = Math.round(cost / users.length)
+    const payerCostArr = []
   for (let i = 0; i < users.length; i++) {
     payerCostArr.push({ name: users[i], cost: payerCost })
   }
@@ -93,7 +100,9 @@ const editCategoryEqually = async (req, res) => {
 
   const findTripById = async (req, res) => {
   try {
-    const trip = await Trip.findById(req.params.id)
+    const { id } = req.params
+
+    const trip = await Trip.findById(id)
     const allCategories = await Category.find({ trip: trip.name })
   
     const users = []
@@ -165,14 +174,15 @@ const renderNewtrip = async (req, res) => {
 
 const createNewTrip = async (req, res) => {
   try {
-  let tripName = req.body.newTripName
-  let tripUsers = req.body.tripUsers
-  let tripUsersResult = tripUsers.split(',')
-  let user = await User.findOne({ email: req.session.user.email })
-  let newTrip
-  let trips = []
-  trips.push(tripName)
-  user.trips = [...user.trips, ...trips]
+    const { newTripName, tripUsers } = req.body
+
+    const tripName = newTripName
+    const tripUsersResult = tripUsers.split(',')
+    let user = await User.findOne({ email: req.session.user.email })
+    let newTrip
+    const trips = []
+    trips.push(tripName)
+    user.trips = [...user.trips, ...trips]
 
   if (tripName && tripUsers) {
           newTrip = new Trip({
@@ -236,16 +246,18 @@ const addCategory = async (req, res) => {
 const createNewCategory = async (req, res) => {
   try {
 
-  const categoryName = req.body.newCategoryName
-  const cost = req.body.fullCost
-  const tripId = req.body.tripId
-  let newTrip = await Trip.findById(tripId)
-  const payers = newTrip.users
-  const tripCategories = newTrip.categories
-  let newCategory
-  const tripName = newTrip.name
-  const payerCost = Math.round(cost / payers.length)
-  const payerCostArr = []
+    const { newCategoryName, fullCost, tripId }= req.body
+    const categoryName = newCategoryName
+    const cost = fullCost
+
+    let newTrip = await Trip.findById(tripId)
+    const payers = newTrip.users
+    const tripCategories = newTrip.categories
+
+    let newCategory
+    const tripName = newTrip.name
+    const payerCost = Math.round(cost / payers.length)
+    const payerCostArr = []
 
   for (let i = 0; i < payers.length; i++) {
     payerCostArr.push({ name: payers[i], cost: payerCost })
@@ -294,10 +306,9 @@ const createNewCategory = async (req, res) => {
 
 const renderCastomizeCategory = async (req, res) => {
   try {
-    const categoryName = req.body.newCategoryName
-    const newTrip = await Trip.findOne({ name: req.body.tripName })
-    const fullCost = req.body.fullCost
-    const payers = req.body.payers
+    const { newCategoryName, tripName, fullCost, payers } = req.body
+    const categoryName = newCategoryName
+    const newTrip = await Trip.findOne({ name: tripName })
 
     res.render('CastomizeCategory', { 
       newTrip, 
@@ -313,11 +324,9 @@ const renderCastomizeCategory = async (req, res) => {
 
 const castomizeCategory = async (req, res) => {
   try {
-
-  const categoryName = req.body.newCategoryName
-  const fullCost = req.body.fullCost
-  const payers = req.body.payers
-  const newTrip = await Trip.findOne({ name: req.body.tripName })
+    const { newCategoryName, fullCost, payers, tripName } = req.body
+    const categoryName = newCategoryName
+    const newTrip = await Trip.findOne({ name: tripName })
 
   if (categoryName && fullCost && payers) {
       res.render('CastomizeCategory', { 
@@ -346,14 +355,14 @@ const castomizeCategory = async (req, res) => {
 const editCategoryCastomize = async (req, res) => {
   try {
 
-  const category = await Category.findById(req.body.categoryId)
-  const newTrip = await Trip.findOne({name: category.trip})
-  const categoryName = category.name
-  const fullCost = category.cost
-  const payersObject = category.users
-  const payers = payersObject.map((el) => {
-    return el.name
-  })
+    const category = await Category.findById(req.body.categoryId)
+    const newTrip = await Trip.findOne({name: category.trip})
+    const categoryName = category.name
+    const fullCost = category.cost
+    const payersObject = category.users
+    const payers = payersObject.map((el) => {
+      return el.name
+    })
 
   if (categoryName && fullCost && payers) {
       res.render('EditCastomizeCategory', { 

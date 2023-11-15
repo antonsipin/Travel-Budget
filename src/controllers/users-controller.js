@@ -56,16 +56,20 @@ const signUp = async (req, res) => {
       }
   } catch (e) {
       console.log(e.message)
-
+      let error
+      if (e.message.includes('duplicate key error')) {
+        error = 'The user already exists'
+      } else {
+        error = e.message
+      }
       res.write(docType)
-      res.end(getHtml(SignUp, { error: 'User not found please try again' }))
+      res.end(getHtml(SignUp, { error }))
     }
 }
 
 const signIn = async (req, res) => {
   try {
-
-  const { email, password } = req.body
+    const { email, password } = req.body
 
   if (email && password) {
       const user = await User.findOne({ email }).lean()
