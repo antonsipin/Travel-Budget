@@ -15,6 +15,7 @@ const accountRoute = require('./src/routes/account')
 const newtripRoute = require('./src/routes/newtrip')
 const dbConnect = require('./src/config/db')
 const userMiddle = require('./src/middleware/user')
+const removeHeader = require('./src/middleware/removeHeader')
 const mailRoute = require('./src/routes/mail')
 const fs = require('fs')
 const PORT = process.env.PORT || 3100
@@ -46,6 +47,7 @@ app.use(session({
 
 app.use(methodOverride('_method'))
 app.use(userMiddle.userName)
+app.use(removeHeader)
 app.use('/', indexRoute)
 app.use('/users', usersRoute)
 app.use('/account', userMiddle.isAuth, accountRoute)
