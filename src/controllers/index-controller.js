@@ -1,16 +1,15 @@
 const Home = require('../views/Home')
-const { getHtml, docType } = require('../utils/index')
 
 const index = (req, res) => {
   try {
-    res.write(docType)
-    res.end(getHtml(Home, {
+    const { user } = req.session
+
+    res.renderComponent(Home, {
       title: 'Travel Budget',
-      userName: req.session?.user?.name || '',
-      error: ''
-    }))
+      username: user?.name || '',
+    })
   } catch (e) {
-    console.log(e.message)
+    console.log(e)
   }
 }
 

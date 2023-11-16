@@ -1,7 +1,7 @@
 require('dotenv').config()
 const nodemailer = require('nodemailer')
 const { imgUrl } = require('../utils/index')
-const { getHtml, docType, getMailUrl, getLetterHtml } = require('../utils/index')
+const { getMailUrl, getLetterHtml } = require('../utils/index')
 const SendMailStatus = require('../views/SendMailStatus')
 
 const sendMail = async (req, res) => {
@@ -37,26 +37,30 @@ const sendMail = async (req, res) => {
           html: letterHtml
         })
         if (result.accepted.length) {
-          res.write(docType)
-          res.end(getHtml(SendMailStatus, {
+          
+          res.renderComponent(SendMailStatus, {
               error: '',
-              email: email ? email : '',
+              email: email || '',
               id: id || '', 
               tripName: tripName || '', 
               users: users || []
-          }))
+          })
         } else {
-          res.write(docType)
-          res.end(getHtml(SendMailStatus, {
-              error: '',
-              email: email ? email : '',
+          
+          res.renderComponent(SendMailStatus, {
+              error: `Something went wrong...${tripName} trip report not sent`,
+              email: email || '',
               id: id || '', 
               tripName: tripName || '', 
               users: users || []
-          }))
+          })
         }
     } catch (e) {
       console.log(e)
+
+      res.renderComponent(SendMailStatus, {
+        error: `Something went wrong...`,
+    })
     }
 }
 

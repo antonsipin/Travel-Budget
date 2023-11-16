@@ -1,9 +1,9 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const Equally = ({ userName, newTrip, categoryName, newCategory, payerCost, tripName, payers }) => {
+const Equally = ({ username, newTrip, categoryName, newCategory, payerCost, tripName, payers }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 <div className="equally">
                     <h2 id="gr-word">

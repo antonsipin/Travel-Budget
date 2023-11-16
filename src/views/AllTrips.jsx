@@ -1,9 +1,9 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const AllTrips = ({ allTrips, userName }) => {
+const AllTrips = ({ allTrips, username }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <h2 className="all-trips-title">
                 This is where you traveled:
             </h2>

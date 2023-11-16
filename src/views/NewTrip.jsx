@@ -1,9 +1,9 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const NewTrip = ({ userName, error }) => {
+const NewTrip = ({ username, error }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 <div className="row">
                     <div className="col-s-12">

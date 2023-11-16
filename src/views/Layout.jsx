@@ -1,6 +1,6 @@
 const React = require('react')
 
-const Layout = ({ title, children, userName }) => {
+const Layout = ({ title, children, username }) => {
     return (
             <html lang="en">
                 <head>
@@ -24,10 +24,10 @@ const Layout = ({ title, children, userName }) => {
                                 <a href="#" className="sidenav-trigger" data-target="mobile-nav">
                                 <i className="material-icons">menu</i>
                                 </a>
-                                {userName ?
+                                {username ?
                                 <ul id="nav-mobile" className="right hide-on-med-and-down ul-index">
                                     <li><a href="/">Home</a></li>
-                                    <li><a href="/account">{userName}</a></li>
+                                    <li><a href="/account">{username}</a></li>
                                     <li><a href="/users/logout">Log Out</a></li>
                                 </ul>:
                                 <ul id="nav-mobile" className="right hide-on-med-and-down ul-index">
@@ -38,10 +38,10 @@ const Layout = ({ title, children, userName }) => {
                                 }
                             </div>
                         </nav>
-                            {userName ?
+                            {username ?
                             <ul className="sidenav" id="mobile-nav">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/account">{userName}</a></li>
+                                <li><a href="/account">{username}</a></li>
                                 <li><a href="/users/logout">Log Out</a></li>
                             </ul>:
                             <ul className="sidenav" id="mobile-nav">

@@ -2,8 +2,8 @@ require('dotenv').config()
 const ReactDomServer = require('react-dom/server')
 const React = require('react')
 
-function getHtml (page, { ...args }) {
-    const reactElement = React.createElement(page, {
+function getHtml (reactComponent, { ...args }) {
+    const reactElement = React.createElement(reactComponent, {
       ...args
     })
     const html = ReactDomServer.renderToStaticMarkup(reactElement)

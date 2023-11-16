@@ -1,9 +1,9 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const EditCastomizeCategory = ({ userName, newTrip, categoryName, fullCost, error, payers, category }) => {
+const EditCastomizeCategory = ({ username, newTrip, categoryName, fullCost, error, payers, category }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 <div className="equally">
                     <h2 

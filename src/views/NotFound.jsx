@@ -1,9 +1,9 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const NotFound = ({ userName }) => {
+const NotFound = ({ username }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 <h2>
                     <div className="row">
