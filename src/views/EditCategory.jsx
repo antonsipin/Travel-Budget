@@ -1,9 +1,9 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const EditCategory = ({ userName, categoryName, category, error, newTrip }) => {
+const EditCategory = ({ username, categoryName, category, error, newTrip }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 <div className="row">
                     <div className="col-s-12">

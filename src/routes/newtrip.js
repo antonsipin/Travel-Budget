@@ -27,10 +27,6 @@ router
   .post(newTripController.saveCastomizeCategory)
 
 router
-  .route('/report')
-  .get(newTripController.renderTripReport)
-
-router
   .route('/allTrips')
   .get(newTripController.allTrips)
 

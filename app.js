@@ -15,6 +15,8 @@ const accountRoute = require('./src/routes/account')
 const newtripRoute = require('./src/routes/newtrip')
 const dbConnect = require('./src/config/db')
 const userMiddle = require('./src/middleware/user')
+const removeHeader = require('./src/middleware/removeHeader')
+const ssr = require('./src/middleware/ssr')
 const mailRoute = require('./src/routes/mail')
 const fs = require('fs')
 const PORT = process.env.PORT || 3100
@@ -46,14 +48,17 @@ app.use(session({
 
 app.use(methodOverride('_method'))
 app.use(userMiddle.userName)
+app.use(removeHeader)
+app.use(ssr)
 app.use('/', indexRoute)
 app.use('/users', usersRoute)
 app.use('/account', userMiddle.isAuth, accountRoute)
 app.use('/newtrip', userMiddle.isAuth, newtripRoute)
 app.use('/mail', mailRoute)
 
-app.use(function (req, res, next) {
-  res.render('NotFound', { userName: req.session?.user?.name})
+app.use(function (req, res) {
+  const { user } = req.session
+  res.render('NotFound', { username: user?.name})
 })
 
 app.listen(PORT, () => {

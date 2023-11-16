@@ -17,8 +17,9 @@ const serializeUser = (user) => {
 
 const renderSignUp = (req, res) => {
   try {
-    res.write(docType)
-    res.end(getHtml(SignUp, { error: '' }))
+    res.renderComponent(SignUp, {
+      error: ''
+    })
   } catch (e) {
     console.log(e.message)
   }
@@ -26,8 +27,9 @@ const renderSignUp = (req, res) => {
 
 const renderLogIn = (req, res) => {
   try {
-    res.write(docType)
-    res.end(getHtml(Login, { error: '' }))
+    res.renderComponent(Login, {
+      error: ''
+    })
   } catch (e) {
     console.log(e.message)
   }
@@ -51,8 +53,9 @@ const signUp = async (req, res) => {
           res.redirect('/account')
         } 
       else {
-        res.write(docType)
-        res.end(getHtml(SignUp, { error: 'Missing Email or Password' }))
+        res.renderComponent(SignUp, { 
+          error: 'Missing Email or Password' 
+        })
       }
   } catch (e) {
       console.log(e.message)
@@ -62,8 +65,10 @@ const signUp = async (req, res) => {
       } else {
         error = e.message
       }
-      res.write(docType)
-      res.end(getHtml(SignUp, { error }))
+      
+      res.renderComponent(SignUp, {
+        error
+      })
     }
 }
 
@@ -77,23 +82,30 @@ const signIn = async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.password)
         if (validPassword) {
           req.session.user = serializeUser(user)
-          res.write(docType)
-          res.end(getHtml(Account, { error: '', userName: req.session?.user?.name }))
+
+          res.renderComponent(Account, {
+            error: '', 
+            username: req.session?.user?.name
+          })
         } else {
-          res.write(docType)
-          res.end(getHtml(Login, { error: 'Wrong Email or Password' }))
+            res.renderComponent(Login, {
+              error: 'Wrong Email or Password'
+            })
         }
       } else {
-          res.write(docType)
-          res.end(getHtml(Login, { error: 'Wrong Email or Password' }))
+          res.renderComponent(Login, {
+            error: 'Wrong Email or Password'
+          })
       }
   } else {
-    res.write(docType)
-    res.end(getHtml(Login, { error: 'Missing Email or Password' }))
+      res.renderComponent(Login, {
+        error: 'Missing Email or Password'
+      })
   }
     } catch (e) {
-        res.write(docType)
-        res.end(getHtml(Login, { error: 'User not found please try again' }))
+        res.renderComponent(Login, {
+          error: 'User not found please try again'
+        })
     }
 }
 

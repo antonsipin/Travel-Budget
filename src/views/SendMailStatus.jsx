@@ -3,11 +3,11 @@ const React = require('react')
 const Layout = require('./Layout')
 const Loader = require('./Loader')
 
-const SendMailStatus = ({ userName, error, email, id, tripName, users }) => {
+const SendMailStatus = ({ username, error, email, id, tripName, users }) => {
     const [secondEmail, setSecondEmail] = React.useState('')
     const [loaderStatus, setLoaderStatus] = React.useState(false)
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 {
                 error ? 

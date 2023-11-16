@@ -1,9 +1,9 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const Home = ({ title, userName }) => {
+const Home = ({ title, username }) => {
     return (
-        <Layout title={title} userName={userName}>
+        <Layout title={title} username={username}>
             <div className="equally">
                 <a href="/" className="brand-logo" id="image-index">
                     <img src="money.jpg" width="200" />
@@ -23,7 +23,7 @@ const Home = ({ title, userName }) => {
                 </h4>
             </div>
 
-            {!userName && 
+            {!username && 
             <div className="signUp">
                 <a href="/users/signup" className="btn-pos orange waves-effect waves-light btn-large">Sign up</a>
             </div>

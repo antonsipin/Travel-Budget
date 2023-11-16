@@ -3,9 +3,9 @@ const React = require('react')
 const Layout = require('./Layout')
 const Mail = require('./Mail')
 
-const Summary = ({ userName, trip, allCategories, resultNames, resulCostArr, maxSumObj, chartSourceLink, error }) => {
+const Summary = ({ username, trip, allCategories, resultNames, resulCostArr, maxSumObj, chartSourceLink, error }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 <div className="account">
                     <h2>

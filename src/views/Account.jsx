@@ -1,16 +1,16 @@
 const React = require('react')
 const Layout = require('./Layout')
 
-const Account = ({ userName }) => {
+const Account = ({ username }) => {
     return (
-        <Layout userName={userName}>
+        <Layout username={username}>
             <div className="container">
                 <div className="row">
                     <div className="col-s-12">
                         <div className="account">
                             <p className="interval"> 
                                 <a className="useraccount" href="/account">
-                                    {userName}, welcome to your account !
+                                    {username}, welcome to your account !
                                 </a>
                             </p>
                         </div>
