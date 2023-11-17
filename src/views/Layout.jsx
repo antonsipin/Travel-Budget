@@ -6,15 +6,14 @@ const Layout = ({ title, children, username }) => {
                 <head>
                     <title>{title}</title>
                     <script defer src="/js/application.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" />
+                    <script src="/js/jquery.js" />
+                    <script src="/js/materialize.js" />
                     <link rel="stylesheet" href="/stylesheets/style.css" />
                     <link rel="stylesheet" href="/stylesheets/stylesheet.css" />
                     <link rel="stylesheet" href="/stylesheets/index.css" />
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" />
-                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-                    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
-                    
+                    <link rel="stylesheet" href="/stylesheets/materialize.css" />
+                    <link rel="stylesheet" href="/stylesheets/fonts.css" />
+                    <link rel="stylesheet" href="/stylesheets/styles.css" />
                 </head>
                 <body>
                     <header>
