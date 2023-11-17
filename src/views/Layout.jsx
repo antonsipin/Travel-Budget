@@ -7,14 +7,13 @@ const Layout = ({ title, children, username }) => {
                     <title>{title}</title>
                     <script defer src="/js/application.js"></script>
                     <script src="/js/jquery.js" />
+                    <script src="/js/materialize.js" />
                     <link rel="stylesheet" href="/stylesheets/style.css" />
                     <link rel="stylesheet" href="/stylesheets/stylesheet.css" />
                     <link rel="stylesheet" href="/stylesheets/index.css" />
                     <link rel="stylesheet" href="/stylesheets/materialize.css" />
-                    <script src="/js/materialize.js" />
                     <link rel="stylesheet" href="/stylesheets/fonts.css" />
                     <link rel="stylesheet" href="/stylesheets/styles.css" />
-                    
                 </head>
                 <body>
                     <header>
