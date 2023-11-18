@@ -2,11 +2,11 @@ const Home = require('../views/Home')
 
 const index = (req, res) => {
   try {
-    const { user } = req.session
+    const { username } = res.locals
 
     res.renderComponent(Home, {
       title: 'Travel Budget',
-      username: user?.name || '',
+      username,
     })
   } catch (e) {
     console.log(e)

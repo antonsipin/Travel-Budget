@@ -1,7 +1,7 @@
 const Trip = require('../models/trip-model')
 const Category = require('../models/category-model')
 const User = require('../models/user-model')
-const { getId, getChartSourceLink, getHtml, docType } = require('../utils/index')
+const { getId, getChartSourceLink, getUserTrips } = require('../utils/index')
 const Summary = require('../views/Summary')
 const AllTrips = require('../views/AllTrips')
 const EditCategory = require('../views/EditCategory')
@@ -14,12 +14,14 @@ const SavedCastomizeCategory = require('../views/SavedCastomizeCategory')
 
 const allTrips = async (req, res) => {
   try {
+    const { username } = res.locals
     const { user } = req.session
+
     const allTrips = await Trip.find({ email: user?.email})
 
     res.renderComponent(AllTrips, { 
       allTrips, 
-      username: user?.name 
+      username
     })  
   } catch (e) {
     console.log(e)
@@ -30,7 +32,7 @@ const findCategoryById = async (req, res) => {
   try {
     const { tripName } = req.body
     const { id } = req.params
-    const { user } = req.session
+    const { username } = res.locals
 
     const newTrip = await Trip.findOne({name: tripName})
     const category = await Category.findById(id)
@@ -40,7 +42,7 @@ const findCategoryById = async (req, res) => {
       newTrip, 
       categoryName, 
       category,
-      username: user?.name,
+      username,
       error: ''
     })
   } catch (e) {
@@ -53,7 +55,7 @@ const editCategoryEqually = async (req, res) => {
     const { tripName, name, cost } = req.body
     const { id } = req.params
     let { users } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     const newTrip = await Trip.findOne({ name: tripName })
     let category = await Category.findById(id)
@@ -83,20 +85,20 @@ const editCategoryEqually = async (req, res) => {
         payerCost, 
         newCategory, 
         newTrip,
-        username: user?.name
+        username
       })
   } else {
     res.renderComponent(Createcategory, {
-      error: 'Not all fields are filled!',
-      username: user?.name
+      error: 'All fields must be filled',
+      username
     })
     }
     } catch (e) {
-        console.log(e)
+        console.log(e.message)
 
         res.renderComponent(Createcategory, {
-          error: 'Incorrect data!',
-          username: req.session?.user?.name 
+          error: e.message || 'Something went wrong',
+          username: res.locals.username
         })
       }
 }
@@ -104,7 +106,7 @@ const editCategoryEqually = async (req, res) => {
   const findTripById = async (req, res) => {
   try {
     const { id } = req.params
-    const { user } = req.session
+    const { username } = res.locals
 
     const trip = await Trip.findById(id)
     const allCategories = await Category.find({ trip: trip.name })
@@ -153,7 +155,7 @@ const editCategoryEqually = async (req, res) => {
     }
   
     res.renderComponent(Summary, {
-      username: user?.name,
+      username,
       trip, 
       allCategories, 
       resultNames, 
@@ -163,6 +165,11 @@ const editCategoryEqually = async (req, res) => {
     })
   } catch (e) {
     console.log(e.message)
+
+    res.renderComponent(Summary, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
+    })
   }
 }
 
@@ -171,87 +178,131 @@ const renderNewtrip = async (req, res) => {
     res.renderComponent(NewTrip)
   } catch (e) {
     console.log(e)
+
+    res.renderComponent(NewTrip, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
+    })
   }
 }
 
 const createNewTrip = async (req, res) => {
   try {
     const { newTripName, tripUsers } = req.body
-
-    const tripName = newTripName
-    const tripUsersResult = tripUsers.split(',')
-    let user = await User.findOne({ email: req.session.user.email })
+    const { username } = res.locals
+    const { email } = req.session.user
+    const userTripNames = await getUserTrips(email)
     let newTrip
-    const trips = []
-    trips.push(tripName)
-    user.trips = [...user.trips, ...trips]
 
-  if (tripName && tripUsers) {
-          newTrip = new Trip({
-          name: tripName,
-          users: tripUsersResult,
-          email: req.session.user.email
+    if (userTripNames.includes(newTripName)) {
+      throw new Error(`${username}, you already have ${newTripName} trip please specify the new trip name!`)
+    } else {
+        const tripName = newTripName
+        const tripUsersResult = tripUsers.split(',')
+        let user = await User.findOne({ email: req.session.user.email })
+        const trips = []
+        trips.push(tripName)
+        user.trips = [...user.trips, ...trips]
+
+      if (tripName && tripUsers) {
+              newTrip = new Trip({
+              name: tripName,
+              users: tripUsersResult,
+              email: req.session.user.email
+            })
+
+          await newTrip.save()
+          await user.save()
+
+          res.renderComponent(Createcategory, {
+            tripName, 
+            tripUsersResult, 
+            newTrip,
+            username: req.session?.user?.name 
+          })
+      } else {
+        res.renderComponent(NewTrip, {
+          error: 'All fields must be filled', 
+          tripName, 
+          tripUsersResult, 
+          newTrip: {
+            name: tripName,
+            users: tripUsersResult,
+            email: req.session.user.email
+          },
+          username: req.session?.user?.name  
         })
-
-      await newTrip.save()
-      await user.save()
-
-      res.renderComponent(Createcategory, {
-        tripName, 
-        tripUsersResult, 
-        newTrip,
-        username: req.session?.user?.name 
-      })
-  } else {
-    res.renderComponent(NewTrip, {
-      error: 'All fields must be filled', 
-      tripName, 
-      tripUsersResult, 
-      newTrip,
-      username: req.session?.user?.name  
-    })
-  }
+      }
+    }
   } catch (e) {
-    console.log(e)
+    console.log(e.message)
+
+    res.renderComponent(NewTrip, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username,
+      tripName: req.body.newTripName, 
+      tripUsersResult: [], 
+      newTrip: {
+        name: req.body.newTripName,
+        users: req.body.tripUsers,
+        email: req.session.user.email
+      },
+    })
   } 
 }
 
 const renderCreateCategory = (req, res) => {
   try {
     const { tripName } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     res.renderComponent(Createcategory, {
       tripName,
-      username: user?.name,
+      username,
       error: ''
     })
   } catch (e) {
     console.log(e.message)
+
+    res.renderComponent(Createcategory, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username,
+      tripName: req.body.tripName
+    })
   }
 }
 
 const addCategory = async (req, res) => {
   try {
     const { tripName } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     const newTrip = await Trip.findOne({ name: tripName })
 
     res.renderComponent(Createcategory, {
       newTrip,
-      username: user?.name,
+      username,
       error: '' 
     })
   } catch (e) {
     console.log(e)
+
+    res.renderComponent(Createcategory, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username,
+      newTrip: {
+        name: req.body.tripName,
+        users: []
+      }
+    })
   }
 }
 
 const createNewCategory = async (req, res) => {
   try {
     const { newCategoryName, fullCost, tripId } = req.body
-    const { user } = req.session
+    const { username } = res.locals
+    const { email } = req.session.user
 
     const categoryName = newCategoryName
     const cost = fullCost
@@ -270,18 +321,40 @@ const createNewCategory = async (req, res) => {
   }
 
   if (categoryName && cost && payers) {
-        newCategory = new Category({
+    const existCategory = tripCategories.find((category) => category.name === categoryName)
+
+    if (existCategory) {
+      const updateTripCategoryUsers = existCategory.users.map((user) => user.cost += payerCost)
+
+      const updateCategories = tripCategories.map((category) => {
+        if (category.name === categoryName) {
+          category.cost += cost
+          category.users = updateTripCategoryUsers
+        }
+        return category
+      })
+      newTrip.categories = updateCategories
+      newTrip.save()
+
+      const userCategory = await Category.find({ email, name: categoryName })
+      if (userCategory) {
+        userCategory.cost += cost
+        userCategory.users = updateTripCategoryUsers
+        userCategory.save
+      }
+
+    } else {
+      newCategory = new Category({
         name: categoryName,
         cost,
         users: payerCostArr,
-        trip: tripName
+        trip: tripName,
+        email
       })
-      
-      tripCategories.push(newCategory)
-      newTrip.categories = tripCategories
-
-      await newCategory.save()
+      newTrip.categories = [...newTrip.categories, newCategory]
       await newTrip.save()
+      await newCategory.save()
+    }
 
       res.renderComponent(Equally, {
         categoryName, 
@@ -290,7 +363,7 @@ const createNewCategory = async (req, res) => {
         tripName, 
         newCategory, 
         newTrip,
-        username: user?.name,
+        username,
         error: '' 
       })
   } else {
@@ -302,18 +375,27 @@ const createNewCategory = async (req, res) => {
         tripName, 
         newCategory, 
         newTrip,
-        username: user?.name
+        username
       })
     }
   } catch (e) {
-    console.log(e)
+    console.log(e.message)
+
+    res.renderComponent(Createcategory, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username,
+      newTrip: {
+        name: req.body.tripName,
+        users: []
+      }
+    })
   }  
 }
 
 const renderCastomizeCategory = async (req, res) => {
   try {
     const { newCategoryName, tripName, fullCost, payers } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     const categoryName = newCategoryName
     const newTrip = await Trip.findOne({ name: tripName })
@@ -323,17 +405,22 @@ const renderCastomizeCategory = async (req, res) => {
       categoryName, 
       fullCost, 
       payers,
-      username: user?.name 
+      username
     })
   } catch(e) {
     console.log(e)
+
+    res.renderComponent(CastomizeCategory, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
+    })
   }
 }
 
 const castomizeCategory = async (req, res) => {
   try {
     const { newCategoryName, fullCost, payers, tripName } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     const categoryName = newCategoryName
     const newTrip = await Trip.findOne({ name: tripName })
@@ -344,20 +431,20 @@ const castomizeCategory = async (req, res) => {
         payers, 
         fullCost, 
         newTrip,
-        username: user?.name 
+        username
       })
   } else {
       res.renderComponent(CastomizeCategory, {
         error: 'All fields must be filled',
-        username: user?.name
+        username
       })
     }
   } catch (e) {
     console.log(e)
 
     res.renderComponent(CastomizeCategory, {
-      error: 'Incorrect data!',
-      username: req.session?.user?.name 
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
     })
   }  
 }
@@ -365,7 +452,7 @@ const castomizeCategory = async (req, res) => {
 const editCategoryCastomize = async (req, res) => {
   try {
     const { categoryId } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     const category = await Category.findById(categoryId)
     const newTrip = await Trip.findOne({name: category.trip})
@@ -383,20 +470,20 @@ const editCategoryCastomize = async (req, res) => {
         payers, 
         fullCost, 
         newTrip,
-        username: user?.name 
+        username
       })
   } else {
       res.renderComponent(EditCastomizeCategory, {
         error: 'Not all fields are filled!',
-        username: user?.name
+        username
       })
     }
   } catch (e) {
     console.log(e)
 
     res.renderComponent(EditCastomizeCategory, {
-      error: 'Incorrect data!',
-      username: req.session?.user?.name 
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
     })
   }  
 }
@@ -404,7 +491,7 @@ const editCategoryCastomize = async (req, res) => {
 const renderSavedCastomizeCategory = async (req, res) => {
   try {
     const { categoryName, castomizeCategoryCost, payer, tripName } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     const castomCost = castomizeCategoryCost
     const payers = payer
@@ -415,17 +502,23 @@ const renderSavedCastomizeCategory = async (req, res) => {
       castomCost, 
       payers, 
       newTrip,
-      username: user?.name
+      username
     })
   } catch (e) {
     console.log(e.message)
+
+    res.renderComponent(SavedCastomizeCategory, {
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
+    })
   }
 }
 
 const saveCastomizeCategory = async (req, res) => {
   try {
     const { categoryName, castomizeCategoryCost, payer, fullCost, tripName } = req.body
-    const { user } = req.session
+    const { username } = res.locals
+    const { email } = req.session.user
 
     const castomCost = castomizeCategoryCost
     const payers = payer
@@ -441,7 +534,8 @@ const saveCastomizeCategory = async (req, res) => {
         name: categoryName,
         cost: fullCost,
         users: castomCostArr,
-        trip: newTrip.name
+        trip: newTrip.name,
+        email
       })
 
       await newCategory.save()
@@ -451,20 +545,20 @@ const saveCastomizeCategory = async (req, res) => {
         castomCostArr, 
         payers, 
         newTrip,
-        username: user?.name
+        username
       })
   } else {
       res.renderComponent(SavedCastomizeCategory, {
         error: 'All fields must be filled',
-        username: user?.name
+        username
       })
     }
   } catch (e) {
     console.log(e)
 
     res.renderComponent(SavedCastomizeCategory, {
-      error: 'Incorrect data!',
-      username: req.session?.user?.name 
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
     })
   }  
 }
@@ -472,7 +566,7 @@ const saveCastomizeCategory = async (req, res) => {
 const saveEditCastom = async (req, res) => {
   try {
     const { payer, castomizeCategoryCost, categoryId } = req.body
-    const { user } = req.session
+    const { username } = res.locals
 
     let category = await Category.findById(categoryId)
 
@@ -500,20 +594,20 @@ const saveEditCastom = async (req, res) => {
         castomCostArr, 
         payers, 
         newTrip,
-        username: user?.name
+        username
       })
   } else {
       res.renderComponent(SavedCastomizeCategory, {
         error: 'All fields must be filled',
-        username: user?.name
+        username
       })
     }
   } catch (e) {
     console.log(e)
 
     res.renderComponent(SavedCastomizeCategory, {
-      error: 'Incorrect data!',
-      username: req.session?.user?.name 
+      error: e.message || 'Something went wrong',
+      username: res.locals.username
     })
   }  
 }

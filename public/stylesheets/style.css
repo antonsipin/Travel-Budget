@@ -78,3 +78,19 @@ body {
   color: #616161;
   margin-top: 60px;
 }
+
+.text-danger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#newtripTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

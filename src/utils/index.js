@@ -1,4 +1,5 @@
 require('dotenv').config()
+const Trip = require('../models/trip-model')
 const ReactDomServer = require('react-dom/server')
 const React = require('react')
 
@@ -26,6 +27,11 @@ function getHtml (reactComponent, { ...args }) {
   return Math.floor(Math.random() * max);
 }
 
+const getUserTrips = async (email) => {
+  const userExistTrips = await Trip.find({ email })
+  return userExistTrips.map((trip) => trip.name)
+}
+
 function getLetterHtml (imgUrl, URL, tripName, users) {
   return `<div style="opacity: 0.7; background-image: url(${imgUrl}); height: 250px; width: 100%"> 
   <p style="font-weight: 800; margin: 20px 0 0 20px; color: rgb(0, 28, 140); display:flex; justify-content:center; font-size: 1.3rem">Hello from Travel Budget!</p></br>
@@ -43,5 +49,6 @@ function getLetterHtml (imgUrl, URL, tripName, users) {
     docType,
     getId,
     imgUrl,
-    getMailUrl
+    getMailUrl,
+    getUserTrips
   }

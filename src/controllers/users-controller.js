@@ -4,7 +4,6 @@ const SignUp = require('../views/SignUp')
 const bcrypt = require('bcrypt')
 const User = require('../models/user-model')
 const salt = process.env.saltRounds || 10
-const { getHtml, docType } = require('../utils/index')
 const Account = require('../views/Account')
 
 const serializeUser = (user) => {

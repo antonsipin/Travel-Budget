@@ -2,10 +2,10 @@ const Account = require('../views/Account')
 
 const account = (req, res) => {
   try {
-    const { user } = req.session
+    const { username } = res.locals
 
     res.renderComponent(Account, { 
-      username: user?.name 
+      username
     })
   } catch (e){
     console.log(e.message)

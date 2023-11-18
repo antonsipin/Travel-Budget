@@ -14,6 +14,7 @@ const categorySchema = Schema({
     required: true,
     type: Array
   },
+  email: String,
   trip: String,
   createdAt: {type: Date, default: Date.now},
   updatedAt: { type: Date, default: Date.now },

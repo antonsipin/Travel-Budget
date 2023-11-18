@@ -11,17 +11,23 @@ const SendMailStatus = ({ username, error, email, id, tripName, users }) => {
             <div className="container">
                 {
                 error ? 
-                <div>
-                    Something went wrong, the report was not sent to the {' '}{email}...
-                </div>:
                 <div className="account">
-                <div className="col s12">
-                    <br />
-                    <h3 className="useraccount">
-                        The report was successfully sent by email:{' '}{email}
-                    </h3>
+                    <div className="col s12">
+                        <br />
+                        <h4>
+                            Something went wrong, the report was not sent ...
+                        </h4>
+                    </div>
                 </div>
-            </div>
+                :
+                <div className="account">
+                    <div className="col s12">
+                        <br />
+                        <h4>
+                            The report was successfully sent by the email:{' '}{email}
+                        </h4>
+                    </div>
+                </div>
                 }
 
                 {loaderStatus && <Loader />}
