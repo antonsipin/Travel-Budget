@@ -46,7 +46,7 @@ loginForm[0]?.addEventListener('submit', async (e) => {
                 signInError.insertAdjacentText('afterbegin', 'Something went wrong')
                 loginForm[0].reset()
             } else if (response.status === 200) {
-                window.location.replace('http://localhost:3100/account')
+                window.location.replace('/account')
             }
     } else {
         for (let i = 0; i <= requiredFieldError.length; i++) {
