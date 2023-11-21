@@ -38,6 +38,8 @@ body {
   margin-top: 100px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .form-form {
   display: flex;
@@ -77,4 +79,40 @@ body {
   justify-content: center;
   color: #616161;
   margin-top: 60px;
+}
+
+.text-danger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#newtripTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.required-error {
+  color: red;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.signup-error {
+  color: red;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+.signin-error {
+  color: red;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
 }

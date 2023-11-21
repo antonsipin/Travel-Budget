@@ -2,6 +2,7 @@ const React = require('react')
 const Layout = require('./Layout')
 
 const Createcategory = ({ username, newTrip, error }) => {
+
     return (
         <Layout username={username}>
             <div className="container">
@@ -16,7 +17,7 @@ const Createcategory = ({ username, newTrip, error }) => {
                                 <p 
                                 id="newtripTitle" 
                                 className="useraccount giveitaname">
-                                    Start {newTrip.name} trip calculation here:
+                                    Start {newTrip && newTrip.name ? newTrip.name : ''} trip calculation here:
                                 </p>
 
                             {error &&
@@ -45,7 +46,7 @@ const Createcategory = ({ username, newTrip, error }) => {
                             </div> 
                             <br />
 
-                            {newTrip.users.length && newTrip.users.map((user, index) => {
+                            {newTrip && newTrip.users && newTrip.users.map((user, index) => {
                                 return (
                                     <div className="form-group" key={index}>
                                         <input 
@@ -65,7 +66,7 @@ const Createcategory = ({ username, newTrip, error }) => {
                                 <input 
                                     type="hidden" 
                                     name="tripName" 
-                                    value={newTrip.name}
+                                    value={newTrip && newTrip.name ? newTrip.name : ''}
                                     className="form-control" 
                                     id="payers" 
                                 />
@@ -75,7 +76,7 @@ const Createcategory = ({ username, newTrip, error }) => {
                                 <input 
                                     type="hidden" 
                                     name="tripId" 
-                                    value={newTrip.id}
+                                    value={newTrip && newTrip.id ? newTrip.id : ''}
                                     className="form-control" 
                                     id="tripId"
                                 />
@@ -99,7 +100,7 @@ const Createcategory = ({ username, newTrip, error }) => {
                                 formAction="/newtrip/category/castomize" 
                                 formMethod="post" 
                                 type="submit" 
-                                value={newTrip.name}
+                                value={newTrip && newTrip.name ? newTrip.name : ''}
                                 name="tripName" className="btn btn-primary green lighten-3">
                                     Custom split 
                             </button>

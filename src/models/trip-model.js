@@ -3,7 +3,6 @@ const Schema = mongoose.Schema
 
 const tripSchema = Schema({
   name: {
-    unique: true,
     required: true,
     type: String
   },

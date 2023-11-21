@@ -6,6 +6,8 @@ const Layout = ({ title, children, username }) => {
                 <head>
                     <title>{title}</title>
                     <script defer src="/js/application.js"></script>
+                    <script defer src="/js/signIn.js"></script>
+                    <script defer src="/js/signUp.js"></script>
                     <script src="/js/jquery.js" />
                     <script src="/js/materialize.js" />
                     <link rel="stylesheet" href="/stylesheets/style.css" />

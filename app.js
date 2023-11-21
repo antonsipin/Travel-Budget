@@ -57,8 +57,8 @@ app.use('/newtrip', userMiddle.isAuth, newtripRoute)
 app.use('/mail', mailRoute)
 
 app.use(function (req, res) {
-  const { user } = req.session
-  res.render('NotFound', { username: user?.name})
+  const { username } = res.locals
+  res.render('NotFound', { username })
 })
 
 app.listen(PORT, () => {
