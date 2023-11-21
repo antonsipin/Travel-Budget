@@ -3,28 +3,27 @@ const signUpError = document.querySelector('.signup-error')
 
 registerForm[0]?.addEventListener('submit', async (e) => {
     e.preventDefault()
+
+    const { action, method, name, email, password } = e.target
+
     if (signUpError && signUpError.textContent) {
         signUpError.textContent = ''
     }
 
-    const registerData = new FormData(registerForm[0])
-    const parseRegisterData = Object.fromEntries(registerData)
-    const { name, email, password } = parseRegisterData
-
-    if (name && email && password) {
-            const response = await fetch('http://localhost:3100/users/signup', {
-                method: 'POST',
+    if (name?.value && email?.value && password?.value) {
+            const response = await fetch(action, {
+                method,
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ 
-                    name,
-                    email,
-                    password 
+                    name: name.value,
+                    email: email.value,
+                    password: password.value 
                 })
             })
             const auth = await response.json()
-            const { result, error } = auth
+            const { error } = auth
             if (response.status >= 400) {
                 if (error === 'Missing Email or Password') {
                     for (let i = 0; i <= requiredFieldError.length; i++) {
