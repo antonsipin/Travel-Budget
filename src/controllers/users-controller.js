@@ -4,7 +4,6 @@ const SignUp = require('../views/SignUp')
 const bcrypt = require('bcrypt')
 const User = require('../models/user-model')
 const salt = process.env.saltRounds || 10
-const Account = require('../views/Account')
 
 const serializeUser = (user) => {
   return {
@@ -39,7 +38,12 @@ const signUp = async (req, res) => {
     const { name, email, password } = req.body
       
     if (name && email && password) {
-      const hashPass = await bcrypt.hash(password, Number(salt))
+      const user = await User.findOne({ email }).lean()
+
+      if (user) {
+        res.status(400).json({ result: 'Error', error: 'The user already exists' })
+      } else {
+        const hashPass = await bcrypt.hash(password, Number(salt))
 
         const newUser = new User({
             email,
@@ -49,12 +53,12 @@ const signUp = async (req, res) => {
 
           await newUser.save()
           req.session.user = serializeUser(newUser)
-          res.redirect('/account')
-        } 
+
+          res.status(200).json({ result: 'Successfully' })
+      }
+    } 
       else {
-        res.renderComponent(SignUp, { 
-          error: 'Missing Email or Password' 
-        })
+        res.status(400).json({ result: 'Error', error: 'Missing Email or Password' })
       }
   } catch (e) {
       console.log(e.message)
@@ -65,9 +69,7 @@ const signUp = async (req, res) => {
         error = e.message
       }
       
-      res.renderComponent(SignUp, {
-        error
-      })
+      res.status(500).json({ result: 'Error', error })
     }
 }
 
@@ -82,29 +84,18 @@ const signIn = async (req, res) => {
         if (validPassword) {
           req.session.user = serializeUser(user)
 
-          res.renderComponent(Account, {
-            error: '', 
-            username: req.session?.user?.name
-          })
+          res.status(200).json({ result: 'Successfully' })
         } else {
-            res.renderComponent(Login, {
-              error: 'Wrong Email or Password'
-            })
+            res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
         }
       } else {
-          res.renderComponent(Login, {
-            error: 'Wrong Email or Password'
-          })
+          res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
       }
   } else {
-      res.renderComponent(Login, {
-        error: 'Missing Email or Password'
-      })
+      res.status(400).json({ result: 'Error', error: 'Missing Email or Password' })
   }
     } catch (e) {
-        res.renderComponent(Login, {
-          error: 'User not found please try again'
-        })
+        res.status(500).json({ result: 'Error', error: 'User not found please try again' })
     }
 }
 
