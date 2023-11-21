@@ -1,6 +1,6 @@
 const React = require('react')
 
-const Layout = ({ title, children, username }) => {
+const Layout = ({ title = 'Travel Budget', children, username }) => {
     return (
             <html lang="en">
                 <head>
