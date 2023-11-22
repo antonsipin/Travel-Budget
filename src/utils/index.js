@@ -16,7 +16,7 @@ function getHtml (reactComponent, { ...args }) {
  const imgUrl = 'https://happay.com/blog/wp-content/uploads/sites/12/2023/05/capital-budgeting.webp'
 
  function getMailUrl (id) {
-  return `http://${process.env.HOST}:${process.env.PORT}/newtrip/${id}`
+  return `${process.env.HOST}/newtrip/${id}`
  }
 
  function getChartSourceLink (result, resultCost, sum) {

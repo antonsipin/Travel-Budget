@@ -27,7 +27,7 @@ app.set('views', path.join(__dirname, 'src', 'views'))
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 
-const serverLogStream = fs.createWriteStream(path.join(`${__dirname}/src/logs`, 'server.log'), { flags: 'a' })
+const serverLogStream = fs.createWriteStream(path.resolve('./server.log'), { flags: 'a' })
 app.use(logger('combined', { stream: serverLogStream }))
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -37,7 +37,9 @@ app.use(express.json())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
-    mongooseConnection: mongoose.createConnection(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`),
+    mongooseConnection: mongoose.createConnection(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wrnxb.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`),
+    // Use for local db instead mongooseConnection:
+    // mongooseConnection: mongoose.createConnection(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`),
   }),
   resave: false,
   saveUninitialized: true,
