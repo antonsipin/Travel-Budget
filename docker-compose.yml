@@ -1,0 +1,13 @@
+version: "3"
+services:
+  app:
+    image: 'travel-budget'
+    container_name: 'travel-budget'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - ${PORT:-3100}:${PORT:-3100}
