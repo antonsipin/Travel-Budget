@@ -27,7 +27,7 @@ app.set('views', path.join(__dirname, 'src', 'views'))
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 
-const serverLogStream = fs.createWriteStream(path.resolve('./src/logs/server.log'), { flags: 'a' })
+const serverLogStream = fs.createWriteStream(path.resolve('./server.log'), { flags: 'a' })
 app.use(logger('combined', { stream: serverLogStream }))
 
 app.use(express.static(path.join(__dirname, 'public')))
