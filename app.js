@@ -13,7 +13,7 @@ const indexRoute = require('./src/routes/index')
 const usersRoute = require('./src/routes/users')
 const accountRoute = require('./src/routes/account')
 const newtripRoute = require('./src/routes/newtrip')
-const dbConnect = require('./src/config/db')
+const { dbConnect, dbConnectionURL } = require('./src/config/db')
 const userMiddle = require('./src/middleware/user')
 const removeHeader = require('./src/middleware/removeHeader')
 const ssr = require('./src/middleware/ssr')
@@ -37,9 +37,7 @@ app.use(express.json())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
-    mongooseConnection: mongoose.createConnection(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wrnxb.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`),
-    // Use for local db instead mongooseConnection:
-    // mongooseConnection: mongoose.createConnection(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`),
+    mongooseConnection: mongoose.createConnection(dbConnectionURL),
   }),
   resave: false,
   saveUninitialized: true,

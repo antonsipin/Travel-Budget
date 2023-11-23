@@ -1,4 +1,4 @@
-PORT=http or https port
+PORT=3100 or some http port
 DB_HOST=Database host
 DB_PORT=Database port
 DB_NAME=Database name
@@ -6,12 +6,9 @@ DB_NAME=Database name
 saltRounds=secret int value
 SESSION_SECRET=secret string value
 
-mailuser=your email
-mailpassword=your email password
-
-MAIL_HOST=Mail host
-MAIL_PORT=Mail port
+MAIL_HOST=for examle smtp.mail.ru
+MAIL_PORT=for examle 465
 HOST=The application starting host
 
-MAIL_USER=Some Email
+MAIL_USER=Some Email from the app will send trip reports
 MAIL_PASSWORD=The Email password
