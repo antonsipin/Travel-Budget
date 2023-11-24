@@ -11,7 +11,7 @@ const NewTrip = ({ username, error }) => {
                             <form 
                                 className="d-flex flex-column align-items-center" 
                                 method="POST" 
-                                action="/newtrip" 
+                                action="/trips" 
                                 id="newtripForm"
                             >
                                 <h3>

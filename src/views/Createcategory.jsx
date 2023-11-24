@@ -12,7 +12,7 @@ const Createcategory = ({ username, newTrip, error }) => {
                             <form 
                             className="d-flex flex-column align-items-center" 
                             method="POST" 
-                            action="/newtrip/category"
+                            action="/trips/category"
                             id="createCategoryForm">
                                 <p 
                                 id="newtripTitle" 
@@ -97,7 +97,7 @@ const Createcategory = ({ username, newTrip, error }) => {
                             </button>
 
                             <button 
-                                formAction="/newtrip/category/castomize" 
+                                formAction="/trips/category/castom" 
                                 formMethod="post" 
                                 type="submit" 
                                 value={newTrip && newTrip.name ? newTrip.name : ''}

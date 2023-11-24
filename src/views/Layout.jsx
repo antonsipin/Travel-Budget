@@ -28,7 +28,7 @@ const Layout = ({ title = 'Travel Budget', children, username }) => {
                                 {username ?
                                 <ul id="nav-mobile" className="right hide-on-med-and-down ul-index">
                                     <li><a href="/">Home</a></li>
-                                    <li><a href="/account">{username}</a></li>
+                                    <li><a href="/accounts">{username}</a></li>
                                     <li><a href="/users/logout">Log Out</a></li>
                                 </ul>:
                                 <ul id="nav-mobile" className="right hide-on-med-and-down ul-index">
@@ -42,7 +42,7 @@ const Layout = ({ title = 'Travel Budget', children, username }) => {
                             {username ?
                             <ul className="sidenav" id="mobile-nav">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/account">{username}</a></li>
+                                <li><a href="/accounts">{username}</a></li>
                                 <li><a href="/users/logout">Log Out</a></li>
                             </ul>:
                             <ul className="sidenav" id="mobile-nav">

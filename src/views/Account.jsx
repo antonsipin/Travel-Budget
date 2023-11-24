@@ -9,7 +9,7 @@ const Account = ({ username }) => {
                     <div className="col-s-12">
                         <div className="account">
                             <p className="interval"> 
-                                <a className="useraccount" href="/account">
+                                <a className="useraccount" href="/accounts">
                                     {username}, welcome to your account !
                                 </a>
                             </p>
@@ -27,7 +27,7 @@ const Account = ({ username }) => {
                         <div className="account">
                             <form 
                             className="acc-btn col-3 col-s-12" 
-                            action="/newtrip">
+                            action="/trips">
                                 <button 
                                     className="waves-effect waves-light btn-large nav-wrapper green lighten-3">
                                         New Trip
@@ -35,7 +35,7 @@ const Account = ({ username }) => {
                             </form>
 
                             <form className="acc-btn col-3 col-s-12" 
-                            action="/newtrip/allTrips">
+                            action="/trips/allTrips">
                                 <button 
                                     className="waves-effect waves-light btn-large nav-wrapper green lighten-3">
                                         All Trips

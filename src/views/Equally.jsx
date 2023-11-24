@@ -16,11 +16,11 @@ const Equally = ({ username, newTrip, categoryName, newCategory, payerCost, trip
 
                     <form 
                         method="POST" 
-                        action={`/newtrip/category/${newCategory.id}`}
+                        action={`/trips/category/${newCategory.id}`}
                         id="editCategoryForm">
 
                     <button 
-                        formAction="/newtrip/addcategory" 
+                        formAction="/trips/category/new" 
                         name="tripId" 
                         formMethod="post" 
                         type="submit" 

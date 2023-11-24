@@ -23,7 +23,7 @@ const CastomizeCategory = ({ username, error, newTrip, fullCost, categoryName, p
                         <form 
                             className="d-flex flex-column align-items-center" 
                             method="POST" 
-                            action="/newtrip/category/castomize/save"
+                            action="/trips/category/castom/save"
                             id="castomizeCategoryForm">
                         <h4>
                             <p 

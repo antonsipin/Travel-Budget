@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const mailController = require('../controllers/mail-controller')
+const mailsController = require('../controllers/mails-controller')
 
 router
   .route('/')
-  .post(mailController.sendMail)
+  .post(mailsController.sendMail)
 
 module.exports = router

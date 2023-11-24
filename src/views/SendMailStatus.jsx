@@ -35,7 +35,7 @@ const SendMailStatus = ({ username, error, email, id, tripName, users }) => {
                 <form 
                     name="mailForm" 
                     method="POST" 
-                    action="/mail" 
+                    action="/mails" 
                     id="mailForm"
                 >
 
@@ -76,7 +76,7 @@ const SendMailStatus = ({ username, error, email, id, tripName, users }) => {
                     <button 
                         onClick={() => setLoaderStatus(true)}
                         id="sendMailBtn" 
-                        formAction="/mail" 
+                        formAction="/mails" 
                         formMethod="POST"
                         style={{
                             width: "100%",
@@ -97,11 +97,11 @@ const SendMailStatus = ({ username, error, email, id, tripName, users }) => {
                     <form
                         name="toAccountForm" 
                         method="GET" 
-                        action="/accountl" 
+                        action="/accounts" 
                         id="toAccountForm"
                     >
                         <button
-                            formAction="/account" 
+                            formAction="/accounts" 
                             id="toAccountBtn" 
                             style={{
                                 width: "100%",

@@ -20,7 +20,7 @@ const SavedCastomizeCategory = ({ username, castomCostArr, newTrip, categoryName
                     <div className="d-flex justify-content-center">
                         <form className="account">
                             <button 
-                                formAction="/newtrip/addcategory" 
+                                formAction="/trips/category/new" 
                                 name="tripName" 
                                 formMethod="post" 
                                 type="submit"
