@@ -46,7 +46,7 @@ registerForm[0]?.addEventListener('submit', async (e) => {
                 signUpError.insertAdjacentText('afterbegin', 'Something went wrong')
                 registerForm[0].reset()
             } else if (response.status === 200) {
-                window.location.replace('/account')
+                window.location.replace('/accounts')
             }
     } else {
         for (let i = 0; i <= requiredFieldError.length; i++) {

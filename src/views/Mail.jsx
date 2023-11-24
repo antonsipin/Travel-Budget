@@ -33,7 +33,7 @@ const Mail = ({ trip }) => {
                 <form 
                     name="mailForm" 
                     method="POST" 
-                    action="/mail" 
+                    action="/mails" 
                     id="mailForm">
 
                     <input
@@ -85,7 +85,7 @@ const Mail = ({ trip }) => {
                     <button 
                         onClick={handleClick}
                         id="sendMailBtn" 
-                        formAction="/mail" 
+                        formAction="/mails" 
                         formMethod="POST"
                         style={{
                             width: "100%", 

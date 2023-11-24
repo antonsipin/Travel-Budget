@@ -11,7 +11,7 @@ const EditCategory = ({ username, categoryName, category, error, newTrip }) => {
                             <form 
                                 className="d-flex flex-column align-items-center" 
                                 method="POST"
-                                action={`/newtrip/category/edit/${category.id}`}
+                                action={`/trips/category/options/${category.id}`}
                                 id="createCategoryForm">
                                 <p 
                                     id="newtripTitle" 
@@ -91,7 +91,7 @@ const EditCategory = ({ username, categoryName, category, error, newTrip }) => {
                                 </button>
 
                                 <button 
-                                    formAction={`/newtrip/category/edit/castomize/${category.id}`} formMethod="post" 
+                                    formAction={`/trips/category/options/castom/${category.id}`} formMethod="post" 
                                     type="submit"
                                     value={newTrip.name} 
                                     name="tripName" 

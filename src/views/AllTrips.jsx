@@ -13,7 +13,7 @@ const AllTrips = ({ allTrips, username }) => {
                 <div className="account" key={trip._id}>
                     <h3>
                         <p id="list" className="list-od-trips list-item col-1-2">
-                            <a className="trips-a big fancy-text light-link" href={`/newtrip/${trip.id}`}>
+                            <a className="trips-a big fancy-text light-link" href={`/trips/${trip.id}`}>
                                 {trip.name}
                             </a>
                         </p>
