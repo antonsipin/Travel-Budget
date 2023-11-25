@@ -40,7 +40,7 @@ app.use(express.json())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
-    mongooseConnection: mongoose.createConnection(dbConnectionURL),
+    mongooseConnection: mongoose.createConnection(dbConnectionURL, { useNewUrlParser: true, useUnifiedTopology: true } ),
   }),
   resave: false,
   saveUninitialized: true,
