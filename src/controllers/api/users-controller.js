@@ -1,8 +1,6 @@
 require('dotenv').config()
-const Login = require('../views/Login')
-const SignUp = require('../views/SignUp')
 const bcrypt = require('bcrypt')
-const User = require('../models/user-model')
+const User = require('../../models/user-model')
 const salt = process.env.saltRounds || 10
 
 const serializeUser = (user) => {
@@ -10,26 +8,6 @@ const serializeUser = (user) => {
     name: user.name,
     id: user.id,
     email: user.email
-  }
-}
-
-const renderSignUp = (req, res) => {
-  try {
-    res.renderComponent(SignUp, {
-      error: ''
-    })
-  } catch (e) {
-    console.log(e.message)
-  }
-}
-
-const renderLogIn = (req, res) => {
-  try {
-    res.renderComponent(Login, {
-      error: ''
-    })
-  } catch (e) {
-    console.log(e.message)
   }
 }
 
@@ -54,7 +32,7 @@ const signUp = async (req, res) => {
           await newUser.save()
           req.session.user = serializeUser(newUser)
 
-          res.status(200).json({ result: 'Successfully' })
+          res.status(200).json({ result: 'Successfully', data : { name , email } })
       }
     } 
       else {
@@ -112,8 +90,6 @@ const logout = (req, res) => {
 }
 
 module.exports = {
-  renderSignUp,
-  renderLogIn,
   signUp,
   signIn,
   logout

@@ -2,7 +2,6 @@ const React = require('react')
 const Layout = require('./Layout')
 
 const Createcategory = ({ username, newTrip, error }) => {
-
     return (
         <Layout username={username}>
             <div className="container">

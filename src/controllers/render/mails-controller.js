@@ -1,8 +1,8 @@
 require('dotenv').config()
 const nodemailer = require('nodemailer')
-const { imgUrl } = require('../utils/index')
-const { getMailUrl, getLetterHtml } = require('../utils/index')
-const SendMailStatus = require('../views/SendMailStatus')
+const { imgUrl } = require('../../utils/index')
+const { getMailUrl, getLetterHtml } = require('../../utils/index')
+const SendMailStatus = require('../../views/SendMailStatus')
 
 const sendMail = async (req, res) => {
   try {
