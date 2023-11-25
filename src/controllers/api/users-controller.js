@@ -32,7 +32,7 @@ const signUp = async (req, res) => {
           await newUser.save()
           req.session.user = serializeUser(newUser)
 
-          res.status(200).json({ result: 'Successfully', data : { name , email } })
+          res.json({ result: 'Successfully', data : { name , email } })
       }
     } 
       else {
@@ -62,7 +62,7 @@ const signIn = async (req, res) => {
         if (validPassword) {
           req.session.user = serializeUser(user)
 
-          res.status(200).json({ result: 'Successfully' })
+          res.json({ result: 'Successfully', data : { name: user.name, email } })
         } else {
             res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
         }

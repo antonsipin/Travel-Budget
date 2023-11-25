@@ -25,7 +25,7 @@ const Home = ({ title, username }) => {
 
             {!username && 
             <div className="signUp">
-                <a href="/users/signup" className="btn-pos orange waves-effect waves-light btn-large">Sign up</a>
+                <a href="/auth/signup" className="btn-pos orange waves-effect waves-light btn-large">Sign up</a>
             </div>
             }
 
