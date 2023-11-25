@@ -2,7 +2,7 @@ const isAuth = (req, res, next) => {
     if (req.session.user) {
         return next()
     } else {
-      res.redirect ('/users/login')
+      res.redirect ('/auth/login')
     }
 }
 const userName = (req, res, next) => {
