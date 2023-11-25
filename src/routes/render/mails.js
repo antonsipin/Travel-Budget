@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const mailsController = require('../controllers/mails-controller')
+const mailsController = require('../../controllers/render/mails-controller')
 
 router
   .route('/')

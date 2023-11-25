@@ -33,8 +33,8 @@ const Layout = ({ title = 'Travel Budget', children, username }) => {
                                 </ul>:
                                 <ul id="nav-mobile" className="right hide-on-med-and-down ul-index">
                                     <li><a href="/">Home</a></li>
-                                    <li><a href="/users/login">Log in</a></li>
-                                    <li><a href="/users/signup">Sign up</a></li>
+                                    <li><a href="/auth/login">Log in</a></li>
+                                    <li><a href="/auth/signup">Sign up</a></li>
                                 </ul>
                                 }
                             </div>
@@ -47,8 +47,8 @@ const Layout = ({ title = 'Travel Budget', children, username }) => {
                             </ul>:
                             <ul className="sidenav" id="mobile-nav">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/users/login">Log in</a></li>
-                                <li><a href="/users/signup">Sign up</a></li>
+                                <li><a href="/auth/login">Log in</a></li>
+                                <li><a href="/auth/signup">Sign up</a></li>
                             </ul>
                             }
                     </header>

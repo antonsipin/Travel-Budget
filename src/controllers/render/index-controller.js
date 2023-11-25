@@ -1,4 +1,4 @@
-const Home = require('../views/Home')
+const Home = require('../../views/Home')
 
 const index = (req, res) => {
   try {

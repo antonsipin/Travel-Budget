@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const accountsController = require('../controllers/accounts-controller')
+const accountsController = require('../../controllers/render/accounts-controller')
 
 router.get('/', accountsController.account)
 

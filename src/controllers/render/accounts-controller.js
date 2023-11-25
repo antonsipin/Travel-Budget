@@ -1,4 +1,4 @@
-const Account = require('../views/Account')
+const Account = require('../../views/Account')
 
 const account = (req, res) => {
   try {

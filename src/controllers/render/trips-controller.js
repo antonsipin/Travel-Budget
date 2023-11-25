@@ -1,16 +1,16 @@
-const Trip = require('../models/trip-model')
-const Category = require('../models/category-model')
-const User = require('../models/user-model')
-const { getId, getChartSourceLink, getUserTrips } = require('../utils/index')
-const Summary = require('../views/Summary')
-const AllTrips = require('../views/AllTrips')
-const EditCategory = require('../views/EditCategory')
-const Equally = require('../views/Equally')
-const Createcategory = require('../views/Createcategory')
-const NewTrip = require('../views/NewTrip')
-const CastomizeCategory = require('../views/CastomizeCategory')
-const EditCastomizeCategory = require('../views/EditCastomizeCategory')
-const SavedCastomizeCategory = require('../views/SavedCastomizeCategory')
+const Trip = require('../../models/trip-model')
+const Category = require('../../models/category-model')
+const User = require('../../models/user-model')
+const { getId, getChartSourceLink, getUserTrips } = require('../../utils/index')
+const Summary = require('../../views/Summary')
+const AllTrips = require('../../views/AllTrips')
+const EditCategory = require('../../views/EditCategory')
+const Equally = require('../../views/Equally')
+const Createcategory = require('../../views/Createcategory')
+const NewTrip = require('../../views/NewTrip')
+const CastomizeCategory = require('../../views/CastomizeCategory')
+const EditCastomizeCategory = require('../../views/EditCastomizeCategory')
+const SavedCastomizeCategory = require('../../views/SavedCastomizeCategory')
 
 const allTrips = async (req, res) => {
   try {
@@ -334,7 +334,7 @@ const createNewCategory = async (req, res) => {
         return category
       })
       newTrip.categories = updateCategories
-      newTrip.save()
+      await newTrip.save()
 
       const userCategory = await Category.find({ email, name: categoryName })
       if (userCategory) {
