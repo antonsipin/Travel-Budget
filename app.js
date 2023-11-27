@@ -28,7 +28,7 @@ app.use('/auth', authRoute)
 app.use('/users', usersRoute)
 app.use('/accounts', usersMiddle.isAuth, accountsRoute)
 app.use('/trips', usersMiddle.isAuth, tripsRoute)
-app.use('/mails', mailsRoute)
+app.use('/mails', usersMiddle.isAuth, mailsRoute)
 
 app.use(function (req, res) {
   const { username } = res.locals
