@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --ignore .'sessions/' app.js --ext jsx,js,json",
+    "dev": "nodemon --ignore ./sessions app.js --ext jsx,js,json",
     "start": "node app.js",
     "production": "cross-env NODE_ENV=production node app.js"
   },
@@ -35,7 +35,6 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-react-views": "^0.11.0",
     "express-session": "^1.17.1",
     "google-charts-node": "^1.0.2",
     "http-errors": "^1.8.0",

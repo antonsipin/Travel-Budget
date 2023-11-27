@@ -10,7 +10,6 @@ const getDbConnectionURL = () => {
 }
 
 const dbConnectionURL = getDbConnectionURL()
-console.log(dbConnectionURL)
 
 function dbConnect() {
   mongoose.connect(dbConnectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
