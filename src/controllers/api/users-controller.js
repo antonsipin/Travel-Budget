@@ -78,15 +78,22 @@ const signIn = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  try {
-    req.session.destroy(function (err) {
-      if (err) throw new Error(err)
-      res.clearCookie(req.app.get('session cookie name'))
-      return res.redirect('/')
-    })
-  } catch (e) {
-    console.log(e.message)
-    res.status(500).json({ error: 'Session destroy error' })
+  const { user } = req.session
+
+    if (user) {
+      try {
+        
+      req.session.destroy(function (err) {
+        if (err) throw new Error(err)
+        res.clearCookie(req.app.get('session cookie name'))
+        return res.redirect('/')
+      })
+      } catch (e) {
+        console.log(e.message)
+        res.status(500).json({ error: 'Session destroy error' })
+      }
+  } else {
+    res.redirect('/auth/login')
   }
 }
 
