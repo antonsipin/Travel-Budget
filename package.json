@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --ignore .'sessions/' app.js --ext jsx,js,json",
+    "dev": "nodemon --ignore ./sessions app.js --ext jsx,js,json",
     "start": "node app.js",
     "production": "cross-env NODE_ENV=production node app.js"
   },

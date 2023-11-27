@@ -32,7 +32,7 @@ const signUp = async (req, res) => {
           await newUser.save()
           req.session.user = serializeUser(newUser)
 
-          res.json({ result: 'Successfully', data : { name , email } })
+          res.json({ result: 'Successfully', data : { name } })
       }
     } 
       else {
@@ -62,7 +62,7 @@ const signIn = async (req, res) => {
         if (validPassword) {
           req.session.user = serializeUser(user)
 
-          res.json({ result: 'Successfully', data : { name: user.name, email } })
+          res.json({ result: 'Successfully', data : { name: user.name } })
         } else {
             res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
         }
@@ -86,6 +86,7 @@ const logout = (req, res) => {
     })
   } catch (e) {
     console.log(e.message)
+    res.status(500).json({ error: 'Session destroy error' })
   }
 }
 
