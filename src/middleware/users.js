@@ -1,15 +1,24 @@
 const isAuth = (req, res, next) => {
+  try {
     if (req.session.user) {
-        return next()
+      return next()
     } else {
       res.redirect ('/auth/login')
     }
-}
-const userName = (req, res, next) => {
-  if (req.session.user) {
-    res.locals.username = req.session.user.name
+  } catch (e) {
+    console.log(e.message)
   }
-  next()
+}
+
+const userName = (req, res, next) => {
+  try {
+    if (req.session.user) {
+      res.locals.username = req.session.user.name
+    }
+    next()
+  } catch (e) {
+    console.log(e.message)
+  }
 }
 
 module.exports = {
