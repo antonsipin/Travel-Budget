@@ -2,6 +2,7 @@ require('dotenv').config()
 const bcrypt = require('bcrypt')
 const User = require('../../models/user-model')
 const salt = process.env.saltRounds || 10
+const validator = require('email-validator')
 
 const serializeUser = (user) => {
   return {
@@ -21,9 +22,12 @@ const signUp = async (req, res) => {
       if (user) {
         res.status(400).json({ result: 'Error', error: 'The user already exists' })
       } else {
-        const hashPass = await bcrypt.hash(password, Number(salt))
+        const isEmailValid = validator.validate(email)
 
-        const newUser = new User({
+        if (isEmailValid) {
+          const hashPass = await bcrypt.hash(password, Number(salt))
+
+          const newUser = new User({
             email,
             name,
             password: hashPass, 
@@ -33,6 +37,9 @@ const signUp = async (req, res) => {
           req.session.user = serializeUser(newUser)
 
           res.json({ result: 'Successfully', data : { name } })
+        } else {
+          res.status(400).json({ result: 'Error', error: 'Invalid email format' })
+        }
       }
     } 
       else {
@@ -55,23 +62,32 @@ const signIn = async (req, res) => {
   try {
     const { email, password } = req.body
 
-  if (email && password) {
-      const user = await User.findOne({ email }).lean()
-      if (user) {
-        const validPassword = await bcrypt.compare(password, user.password)
-        if (validPassword) {
-          req.session.user = serializeUser(user)
+      if (email && password) {
+          const isEmailValid = validator.validate(email)
 
-          res.json({ result: 'Successfully', data : { name: user.name } })
-        } else {
-            res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
-        }
+          if (isEmailValid) {
+              const user = await User.findOne({ email }).lean()
+
+              if (user) {
+                  const validPassword = await bcrypt.compare(password, user.password)
+
+                  if (validPassword) {
+                    req.session.user = serializeUser(user)
+
+                    res.json({ result: 'Successfully', data : { name: user.name } })
+                  } else {
+                      res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
+                  }
+                
+              } else {
+                  res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
+              }
+          } else {
+              res.status(400).json({ result: 'Error', error: 'Invalid email format' })
+            }
       } else {
-          res.status(400).json({ result: 'Error', error: 'Wrong Email or Password' })
+          res.status(400).json({ result: 'Error', error: 'Missing Email or Password' })
       }
-  } else {
-      res.status(400).json({ result: 'Error', error: 'Missing Email or Password' })
-  }
     } catch (e) {
         res.status(500).json({ result: 'Error', error: 'User not found please try again' })
     }
