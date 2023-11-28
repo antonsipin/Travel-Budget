@@ -7,9 +7,10 @@ const ssr = require('../middleware/ssr')
 const removeHeader = require('../middleware/removeHeader')
 const sessionConfig = require('./sessionConfig')
 const cors = require('cors')
+const corsConfig = require('../config/corsConfig')
 
 const serverConfig = (app) => {
-    app.use(cors())
+    app.use(cors(corsConfig))
     app.use(cookieParser())
     app.use(methodOverride('_method'))
     sessionConfig(app)
