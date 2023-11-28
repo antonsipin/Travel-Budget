@@ -3,7 +3,10 @@ const Trip = require('../models/trip-model')
 const ReactDomServer = require('react-dom/server')
 const React = require('react')
 
-const urls = [ 'http://localhost:3000', 'http://localhost:3100', 'http://localhost:4000']
+const urls = [ 
+  'http://localhost:3100', 
+  'https://localhost:3100', 
+]
 
 function getHtml (reactComponent, { ...args }) {
     const reactElement = React.createElement(reactComponent, {
