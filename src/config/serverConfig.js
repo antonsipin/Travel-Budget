@@ -6,8 +6,10 @@ const methodOverride = require('method-override')
 const ssr = require('../middleware/ssr')
 const removeHeader = require('../middleware/removeHeader')
 const sessionConfig = require('./sessionConfig')
+const cors = require('cors')
 
 const serverConfig = (app) => {
+    app.use(cors())
     app.use(cookieParser())
     app.use(methodOverride('_method'))
     sessionConfig(app)
