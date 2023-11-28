@@ -3,6 +3,8 @@ const Trip = require('../models/trip-model')
 const ReactDomServer = require('react-dom/server')
 const React = require('react')
 
+const urls = [ 'http://localhost:3000', 'http://localhost:3100', 'http://localhost:4000']
+
 function getHtml (reactComponent, { ...args }) {
     const reactElement = React.createElement(reactComponent, {
       ...args
@@ -50,5 +52,6 @@ function getLetterHtml (imgUrl, URL, tripName, users) {
     getId,
     imgUrl,
     getMailUrl,
-    getUserTrips
+    getUserTrips,
+    urls
   }
